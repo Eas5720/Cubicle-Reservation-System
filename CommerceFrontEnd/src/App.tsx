@@ -3,6 +3,7 @@ import './App.css'
 import TopNav from './components/TopNav'
 import ReservationList from './pages/ReservationList'
 import ReservationCreate from './pages/ReservationCreate'
+import Login from './pages/Login'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <TopNav/>
       <div className="container mt-4">
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/reservationlist" element={<ReservationList />} />
           <Route path="/reservationcreate" element={<ReservationCreate />} />
         </Routes>
