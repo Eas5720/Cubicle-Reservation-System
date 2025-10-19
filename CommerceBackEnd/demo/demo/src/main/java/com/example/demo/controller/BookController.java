@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class BookController {
 
+    //controller is the entry point
+
     private final BookService bookService;
 
     @GetMapping("/hello")
@@ -23,10 +25,19 @@ public class BookController {
 
     }
 
+    // GET "/students/{id}"
+
     @PostMapping("/book")
     public ResponseEntity<?> save(@RequestBody Book book){
         return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
+    }
 
+
+    @GetMapping("/book")
+    public ResponseEntity<?> findAll(){
+        return new ResponseEntity<>(
+                bookService.findAll(), HttpStatus.OK);
+        )
     }
 
 

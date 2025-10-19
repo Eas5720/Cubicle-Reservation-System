@@ -13,6 +13,9 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
+    // Business logic described here
+    // CRUD Create Read Update Delete are defined in the repository
+    // Defined automatically
 
     @Transactional
     public Book create(Book book){
