@@ -1,9 +1,6 @@
 package com.example.demo.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +17,10 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary Key
-    private String name;
-    private String cubicalID;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User name;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Cubical cubicalID;
     private Date startDate;
     private Date endDate;
 }

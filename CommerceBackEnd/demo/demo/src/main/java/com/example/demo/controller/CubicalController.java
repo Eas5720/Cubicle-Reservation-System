@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CubicalController {
 
-    //controller is the entry point
-
     private final CubicalService cubicalService;
 
     @PostMapping("/cubical")
