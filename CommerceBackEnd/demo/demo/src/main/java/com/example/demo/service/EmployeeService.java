@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.domain.Employee;
+import com.example.demo.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,23 +10,23 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class EmployeeService {
 
-    private final UserRepository userRepository;
+    private final EmployeeRepository employeeRepository;
 
     // Business logic described here
     // CRUD Create Read Update Delete are defined in the repository
     // Defined automatically
 
     @Transactional
-    public User create(User user){
+    public Employee create(Employee employee){
 
-        return userRepository.save(user);
+        return employeeRepository.save(employee);
 
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<Employee> findAll(){
+        return employeeRepository.findAll();
     }
 
 

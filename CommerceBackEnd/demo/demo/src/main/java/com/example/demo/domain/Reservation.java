@@ -18,7 +18,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary Key
     @ManyToOne(cascade = CascadeType.ALL)
-    private User name;
+    private Employee name;
     @ManyToOne(cascade = CascadeType.ALL)
     private Cubical cubicalID;
     private Date startDate;

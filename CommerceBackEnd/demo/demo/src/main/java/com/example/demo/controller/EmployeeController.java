@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.User;
-import com.example.demo.service.UserService;
+import com.example.demo.domain.Employee;
+import com.example.demo.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class UserController {
+public class EmployeeController {
 
-    private final UserService userService;
+    private final EmployeeService employeeService;
 
-    @PostMapping("/user")
-    public ResponseEntity<?> save(@RequestBody User user){
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+    @PostMapping("/employee")
+    public ResponseEntity<?> save(@RequestBody Employee employee){
+        return new ResponseEntity<>(employeeService.create(employee), HttpStatus.CREATED);
     }
 
 
-    @GetMapping("/users")
+    @GetMapping("/employees")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(
-                userService.findAll(), HttpStatus.OK);
+                employeeService.findAll(), HttpStatus.OK);
     }
 
 
