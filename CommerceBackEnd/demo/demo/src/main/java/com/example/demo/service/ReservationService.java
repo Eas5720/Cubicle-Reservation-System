@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Book;
-import com.example.demo.repository.BookRepository;
+import com.example.demo.domain.Reservation;
+import com.example.demo.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,23 +10,23 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class BookService {
+public class ReservationService {
 
-    private final BookRepository bookRepository;
+    private final ReservationRepository reservationRepository;
 
     // Business logic described here
     // CRUD Create Read Update Delete are defined in the repository
     // Defined automatically
 
     @Transactional
-    public Book create(Book book){
+    public Reservation create(Reservation reservation){
 
-        return bookRepository.save(book);
+        return reservationRepository.save(reservation);
 
     }
 
-    public List<Book> findAll(){
-        return bookRepository.findAll();
+    public List<Reservation> findAll(){
+        return reservationRepository.findAll();
     }
 
 

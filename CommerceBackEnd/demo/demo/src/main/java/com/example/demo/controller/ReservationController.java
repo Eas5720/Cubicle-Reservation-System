@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Book;
-import com.example.demo.service.BookService;
+import com.example.demo.domain.Reservation;
+import com.example.demo.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class BookController {
+public class ReservationController {
 
     //controller is the entry point
 
-    private final BookService bookService;
+    private final ReservationService reservationService;
 
     @GetMapping("/hello")
     public String save(){
@@ -27,16 +27,16 @@ public class BookController {
 
     // GET "/students/{id}"
 
-    @PostMapping("/books")
-    public ResponseEntity<?> save(@RequestBody Book book){
-        return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
+    @PostMapping("/reservations")
+    public ResponseEntity<?> save(@RequestBody Reservation reservation){
+        return new ResponseEntity<>(reservationService.create(reservation), HttpStatus.CREATED);
     }
 
 
-    @GetMapping("/books")
+    @GetMapping("/reservations")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(
-                bookService.findAll(), HttpStatus.OK);
+                reservationService.findAll(), HttpStatus.OK);
     }
 
 

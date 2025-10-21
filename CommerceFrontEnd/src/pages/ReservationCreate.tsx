@@ -3,16 +3,16 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 function ReservationCreate() {
-  const [book, setBook] = useState({
-    author: '',
-    title: ''
+  const [reservation, setReservation] = useState({
+    name: '',
+    cubicalID: ''
   }); //creates variables to store
 
 
   const changeValue=(e)=>{
     console.log(e);
-    setBook({
-     ...book, [e.target.name]:e.target.value  
+    setReservation({
+     ...reservation, [e.target.name]:e.target.value  
     });
     console.log(e.target.name + " name "  );
     console.log(e.target.value + " value " );
@@ -21,13 +21,13 @@ function ReservationCreate() {
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      const response = await axios.post('/api/books', book);
-      console.log('Book saved:', response.data);
-      alert('Book saved successfully!');
-      setBook({ author: '', title: '' });
+      const response = await axios.post('/api/reservations', reservation);
+      console.log('Reservation saved:', response.data);
+      alert('Reservation saved successfully!');
+      setReservation({ name: '', cubicalID: '' });
     } catch (error) {
-      console.error('Error saving book:', error);
-      alert('Failed to save book.');
+      console.error('Error saving reservation:', error);
+      alert('Failed to save reservation.');
     }
   };
 
@@ -36,13 +36,13 @@ function ReservationCreate() {
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="input" placeholder="name" name = "author" onChange={changeValue}/> 
+                <Form.Control type="input" placeholder="name" name = "name" onChange={changeValue}/> 
                 
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Cubical ID</Form.Label>
-                <Form.Control type="input" placeholder="cubical id" name = "title" onChange={changeValue}/>
+                <Form.Control type="input" placeholder="cubical id" name = "cubicalID" onChange={changeValue}/>
             </Form.Group>
 
             <Button variant="primary" type="submit">

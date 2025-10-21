@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity // All of these create the methods
-public class Book {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary Key
-    private String title;
-    private String author;
+    private String name;
+    private String cubicalID;
 }
