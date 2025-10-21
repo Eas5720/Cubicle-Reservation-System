@@ -18,6 +18,6 @@ public class Cubical {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary Key
+    private String roomNumber;
     private int floor;
-    private int maxOccupancy;
 }

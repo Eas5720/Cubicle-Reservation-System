@@ -13,6 +13,7 @@ function TopNav() {
           <Nav className="me-auto">
             <Nav.Link href="/reservationlist">ReservationList</Nav.Link>
             <Nav.Link href="/reservationcreate">ReservationCreate</Nav.Link>
+            <Nav.Link href="/cubicalcreate">CubicalCreate</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

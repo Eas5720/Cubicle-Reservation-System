@@ -18,7 +18,7 @@ public class CubicalController {
 
     private final CubicalService cubicalService;
 
-    @PostMapping("/cubicals")
+    @PostMapping("/cubical")
     public ResponseEntity<?> save(@RequestBody Cubical cubical){
         return new ResponseEntity<>(cubicalService.create(cubical), HttpStatus.CREATED);
     }

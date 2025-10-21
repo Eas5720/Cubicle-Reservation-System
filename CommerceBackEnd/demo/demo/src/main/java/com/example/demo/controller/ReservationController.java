@@ -27,7 +27,7 @@ public class ReservationController {
 
     // GET "/students/{id}"
 
-    @PostMapping("/reservations")
+    @PostMapping("/reservation")
     public ResponseEntity<?> save(@RequestBody Reservation reservation){
         return new ResponseEntity<>(reservationService.create(reservation), HttpStatus.CREATED);
     }

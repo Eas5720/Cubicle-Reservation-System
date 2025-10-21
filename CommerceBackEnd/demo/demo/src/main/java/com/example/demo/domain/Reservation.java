@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,4 +22,6 @@ public class Reservation {
     private Long id; //Primary Key
     private String name;
     private String cubicalID;
+    private Date startDate;
+    private Date endDate;
 }

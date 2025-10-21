@@ -21,7 +21,7 @@ function ReservationCreate() {
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      const response = await axios.post('/api/reservations', reservation);
+      const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
       setReservation({ name: '', cubicalID: '' });

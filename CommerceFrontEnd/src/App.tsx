@@ -4,6 +4,7 @@ import TopNav from './components/TopNav'
 import ReservationList from './pages/ReservationList'
 import ReservationCreate from './pages/ReservationCreate'
 import Login from './pages/Login'
+import CubicalCreate from './pages/CubicalCreate'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/reservationlist" element={<ReservationList />} />
           <Route path="/reservationcreate" element={<ReservationCreate />} />
+          <Route path="/cubicalcreate" element={<CubicalCreate />} />
         </Routes>
       </div>
 
