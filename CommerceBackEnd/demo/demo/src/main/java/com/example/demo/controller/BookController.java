@@ -27,17 +27,16 @@ public class BookController {
 
     // GET "/students/{id}"
 
-    @PostMapping("/book")
+    @PostMapping("/books")
     public ResponseEntity<?> save(@RequestBody Book book){
         return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
     }
 
 
-    @GetMapping("/book")
+    @GetMapping("/books")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(
                 bookService.findAll(), HttpStatus.OK);
-        )
     }
 
 

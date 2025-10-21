@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class BookService {
@@ -22,6 +24,10 @@ public class BookService {
 
         return bookRepository.save(book);
 
+    }
+
+    public List<Book> findAll(){
+        return bookRepository.findAll();
     }
 
 
