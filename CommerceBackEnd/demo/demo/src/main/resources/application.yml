@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: book-service
+    name: commerce-bank-service
 
   h2:
     console:
