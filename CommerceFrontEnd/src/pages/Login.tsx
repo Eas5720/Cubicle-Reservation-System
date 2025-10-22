@@ -1,15 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [employeeID] = useState(
+    localStorage.getItem("employeeID")
+  );
+
   const [login, setLogin] = useState({
     email: '',
     password: ''
   }); //creates variables to store
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if (employeeID != null){
+        navigate('/home');
+    }
+  }, [])
 
   const changeValue=(e)=>{
     console.log(e);
@@ -30,29 +40,16 @@ function Login() {
       }
       else{
         console.log('Login attempt:', response.data);
-        //alert('Login successfully!');
         localStorage.setItem("employeeID", response.data.id);
         localStorage.setItem("isAdmin", response.data.admin);
-        if(response.data.admin){
-            navigate('/adminhome');
-        }
-        else{
-            navigate('/home');
-        }
-        //setLogin({ email: '', password: '' });
+        navigate('/home');
+        setLogin({ email: '', password: '' });
       }
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Failed to log in.');
     }
   };
-
-  const [employeeID, setEmployeeID] = useState({
-    id: localStorage.getItem("employeeID"),
-  });
-
-  //<p>{employeeID.id}</p>
-
 
   return (
     <div>
@@ -72,7 +69,6 @@ function Login() {
                 Submit
             </Button>
         </Form>
-        
     </div>
   );
 }

@@ -1,8 +1,5 @@
 
-
 function AdminHome() {
-
-  
   return (
     <div>
         <p>Admin Page</p>
