@@ -25,8 +25,8 @@ public class ReservationController {
     // GET "/students/{id}"
 
     @PostMapping("/reservation")
-    public ResponseEntity<?> save(@RequestBody Reservation reservation, @PathVariable Long employeeID, @PathVariable Long cubicalID){
-        return new ResponseEntity<>(reservationService.create(reservation, employeeID, cubicalID), HttpStatus.CREATED);
+    public ResponseEntity<?> save(@RequestBody Reservation reservation){
+        return new ResponseEntity<>(reservationService.create(reservation), HttpStatus.CREATED);
     }
 
 

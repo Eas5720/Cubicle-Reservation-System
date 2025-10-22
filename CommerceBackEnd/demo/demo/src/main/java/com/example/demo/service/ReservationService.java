@@ -23,13 +23,17 @@ public class ReservationService {
     // Defined automatically
 
     @Transactional
-    public Reservation create(Reservation reservation, Long employeeId, Long cubicalID){
+    public Reservation create(Reservation reservation){
+        return reservationRepository.save(reservation);
+    }
+
+    /*public Reservation create(Reservation reservation, Long employeeId, Long cubicalID){
         Employee employee = employeeService.findById(employeeId);
         Cubical cubical = cubicalService.findById(cubicalID);
         reservation.setEmployee(employee);
         reservation.setCubical(cubical);
         return reservationRepository.save(reservation);
-    }
+    }*/
 
     public Reservation findById(long id){
         return reservationRepository.findById(id).orElse(null);

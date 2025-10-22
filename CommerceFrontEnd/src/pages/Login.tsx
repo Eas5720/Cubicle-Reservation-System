@@ -51,7 +51,11 @@ function Login() {
         //console.log('Login attempt:', response.data);
         localStorage.setItem("employeeID", response.data.id);
         localStorage.setItem("isAdmin", response.data.admin);
-        navigate('/home');
+        if(response.data.admin){
+          navigate('/adminhome');
+        }else{
+          navigate('/home');
+        }
         setLogin({ email: '', password: '' });
       }
     } catch (error) {
