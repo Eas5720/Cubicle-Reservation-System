@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Cubical;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.Reservation;
 import com.example.demo.repository.ReservationRepository;
@@ -14,16 +15,20 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final EmployeeService employeeService;
+    private final CubicalService cubicalService;
 
     // Business logic described here
     // CRUD Create Read Update Delete are defined in the repository
     // Defined automatically
 
     @Transactional
-    public Reservation create(Reservation reservation){
-
+    public Reservation create(Reservation reservation, Long employeeId, Long cubicalID){
+        Employee employee = employeeService.findById(employeeId);
+        Cubical cubical = cubicalService.findById(cubicalID);
+        reservation.setEmployee(employee);
+        reservation.setCubical(cubical);
         return reservationRepository.save(reservation);
-
     }
 
     public Reservation findById(long id){

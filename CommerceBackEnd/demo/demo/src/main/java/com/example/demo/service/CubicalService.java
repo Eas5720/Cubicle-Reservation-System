@@ -25,6 +25,10 @@ public class CubicalService {
 
     }
 
+    public Cubical findById(Long id){
+        return cubicalRepository.findById(id).orElse(null);
+    }
+
     public List<Cubical> findAll(){
         return cubicalRepository.findAll();
     }

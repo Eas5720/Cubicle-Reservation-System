@@ -9,7 +9,7 @@ function CubicalCreate() {
   }); //creates variables to store
 
 
-  const changeValue=(e)=>{
+  const changeValue=(e: { target: { name: string; value: string; }; })=>{
     console.log(e);
     setCubical({
      ...cubical, [e.target.name]:e.target.value  
@@ -24,7 +24,7 @@ function CubicalCreate() {
       const response = await axios.post('/api/cubical', cubical);
       console.log('Cubical saved:', response.data);
       alert('Cubical saved successfully!');
-      setCubical({ roomNumber: '', floor: '' });
+      //setCubical({ roomNumber: '', floor: '' });
     } catch (error) {
       console.error('Error saving cubical:', error);
       alert('Failed to save cubical.');

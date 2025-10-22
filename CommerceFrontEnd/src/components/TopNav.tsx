@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function TopNav() {
   const [employeeID] = useState(
-    localStorage.getItem("employeeID"),
+    localStorage.getItem("employeeID")
   );
   const navigate = useNavigate();
   const handleClick = () =>{

@@ -5,10 +5,7 @@ import com.example.demo.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -30,6 +27,12 @@ public class EmployeeController {
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(
                 employeeService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return new ResponseEntity<>(
+                employeeService.findById(id), HttpStatus.OK);
     }
 
 

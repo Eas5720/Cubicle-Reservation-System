@@ -7,21 +7,28 @@ function Login() {
   const [employeeID] = useState(
     localStorage.getItem("employeeID")
   );
+  const [isAdmin] = useState(
+    localStorage.getItem("isAdmin")
+  );
 
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(employeeID != null && isAdmin!=null && JSON.parse(isAdmin)===true){
+        navigate('/adminhome');
+    }
+    else{
+        navigate('/home');
+    }
+  }, [])
   const [login, setLogin] = useState({
     email: '',
     password: ''
   }); //creates variables to store
 
-  const navigate = useNavigate();
+  
 
-  useEffect(()=>{
-    if (employeeID != null){
-        navigate('/home');
-    }
-  }, [])
-
-  const changeValue=(e)=>{
+  const changeValue=(e: { target: { name: any; value: any; }; })=>{
     console.log(e);
     setLogin({
      ...login, [e.target.name]:e.target.value  
@@ -30,23 +37,23 @@ function Login() {
     //console.log(e.target.value + " value " );
   }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
       const response = await axios.post('/api/login', login);
       if (response.data.id == null){
-        console.log('Login attempt:', response.data);
+        //console.log('Login attempt:', response.data);
         alert('Username or Password incorrect');
       }
       else{
-        console.log('Login attempt:', response.data);
+        //console.log('Login attempt:', response.data);
         localStorage.setItem("employeeID", response.data.id);
         localStorage.setItem("isAdmin", response.data.admin);
         navigate('/home');
         setLogin({ email: '', password: '' });
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      //console.error('Error logging in:', error);
       alert('Failed to log in.');
     }
   };

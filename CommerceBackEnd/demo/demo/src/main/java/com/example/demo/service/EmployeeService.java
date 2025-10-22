@@ -25,6 +25,7 @@ public class EmployeeService {
 
     }
 
+    @Transactional
     public Employee findById(long id){
         return employeeRepository.findById(id).orElse(null);
     }
