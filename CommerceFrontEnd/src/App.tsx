@@ -8,7 +8,6 @@ import CubicalCreate from './pages/CubicalCreate'
 import CubicalList from './pages/CubicalList'
 
 function App() {
-
   return (
     <>
       <TopNav/>

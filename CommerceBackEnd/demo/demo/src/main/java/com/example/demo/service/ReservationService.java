@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Employee;
 import com.example.demo.domain.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,11 @@ public class ReservationService {
 
     }
 
-    public List<Reservation> findAll(){
+    public Reservation findById(long id){
+        return reservationRepository.findById(id).orElse(null);
+    }
+
+    public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
 

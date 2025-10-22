@@ -1,13 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-function ReservationCreate() {
+function ReservationCreate() {  
+
   const [reservation, setReservation] = useState({
-    name: '',
-    cubicalID: ''
+    employee:null,
+    cubical:null,
+    startDate: '',
+    endDate: ''
   }); //creates variables to store
-
 
   const changeValue=(e)=>{
     console.log(e);
@@ -18,37 +22,39 @@ function ReservationCreate() {
     console.log(e.target.value + " value " );
   }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
-      setReservation({ name: '', cubicalID: '' });
+      setReservation({employee:null, cubical:null, startDate: '', endDate: '' });
     } catch (error) {
       console.error('Error saving reservation:', error);
       alert('Failed to save reservation.');
     }
   };
 
+  const [startDate, setStartDate] = useState(new Date());
+
   return (
+    
     <div>
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="input" placeholder="name" name = "name" onChange={changeValue}/> 
-                
-            </Form.Group>
+      <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control type="input" placeholder="start" name = "startDate" onChange={changeValue}/>
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Cubical ID</Form.Label>
-                <Form.Control type="input" placeholder="cubical id" name = "cubicalID" onChange={changeValue}/>
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>End Date</Form.Label>
+              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          </Form.Group>
 
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
+          <Button variant="primary" type="submit">
+              Submit
+          </Button>
+      </Form>
     </div>
   );
 }

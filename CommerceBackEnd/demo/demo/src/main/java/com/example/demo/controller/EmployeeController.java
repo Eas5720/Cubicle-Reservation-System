@@ -16,17 +16,23 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Employee employee){
+        return new ResponseEntity<>(employeeService.login(employee), HttpStatus.OK);
+    }
+
     @PostMapping("/employee")
     public ResponseEntity<?> save(@RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.create(employee), HttpStatus.CREATED);
     }
-
 
     @GetMapping("/employees")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(
                 employeeService.findAll(), HttpStatus.OK);
     }
+
+
 
 
 }

@@ -13,7 +13,7 @@ function CubicalList() {
   return (
     <div className='container'>
         <div className='mt-3'>
-          <h3> Fetch Data from API in react with axios</h3>
+          <h3>All Cubicals</h3>
           <Table>
             <thead>
               <tr>

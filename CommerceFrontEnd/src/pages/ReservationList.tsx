@@ -13,7 +13,7 @@ function ReservationList() {
   return (
     <div className='container'>
         <div className='mt-3'>
-          <h3> Fetch Data from API in react with axios</h3>
+          <h3>All Reservations</h3>
           <Table>
             <thead>
               <tr>
@@ -29,8 +29,8 @@ function ReservationList() {
                 data.map((data, index) =>{
                   return <tr key={index}>
                     <td>{data.id}</td>
-                    <td>{data.employee.firstName}</td>
-                    <td>{data.cubical.roomNumber}</td>
+                    <td>{data.employeeDOTfirstName}</td>
+                    <td>{data.cubicalDOTroomNumber}</td>
                     <td>{data.startDate}</td>
                     <td>{data.endDate}</td>
                   </tr>

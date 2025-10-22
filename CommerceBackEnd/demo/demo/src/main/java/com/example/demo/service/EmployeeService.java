@@ -25,6 +25,20 @@ public class EmployeeService {
 
     }
 
+    public Employee findById(long id){
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+    public Employee login(Employee employee){
+        List<Employee> employees = findAll();
+        for(Employee e: employees){
+            if(e.getEmail().equals(employee.getEmail()) &&  e.getPassword().equals(employee.getPassword())) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public List<Employee> findAll(){
         return employeeRepository.findAll();
     }
