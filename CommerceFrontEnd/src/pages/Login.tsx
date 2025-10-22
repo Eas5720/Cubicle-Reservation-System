@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const [login, setLogin] = useState({
@@ -8,6 +9,7 @@ function Login() {
     password: ''
   }); //creates variables to store
 
+  const navigate = useNavigate();
 
   const changeValue=(e)=>{
     console.log(e);
@@ -28,9 +30,15 @@ function Login() {
       }
       else{
         console.log('Login attempt:', response.data);
-        alert('Login successfully!');
+        //alert('Login successfully!');
         localStorage.setItem("employeeID", response.data.id);
-        localStorage.setItem("isAdmin", response.data.isAdmin);
+        localStorage.setItem("isAdmin", response.data.admin);
+        if(response.data.admin){
+            navigate('/adminhome');
+        }
+        else{
+            navigate('/home');
+        }
         //setLogin({ email: '', password: '' });
       }
     } catch (error) {
@@ -42,6 +50,8 @@ function Login() {
   const [employeeID, setEmployeeID] = useState({
     id: localStorage.getItem("employeeID"),
   });
+
+  //<p>{employeeID.id}</p>
 
 
   return (
@@ -62,7 +72,7 @@ function Login() {
                 Submit
             </Button>
         </Form>
-        <p>{employeeID.id}</p>
+        
     </div>
   );
 }

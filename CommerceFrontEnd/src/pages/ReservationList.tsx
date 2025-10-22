@@ -29,8 +29,8 @@ function ReservationList() {
                 data.map((data, index) =>{
                   return <tr key={index}>
                     <td>{data.id}</td>
-                    <td>{data.employeeDOTfirstName}</td>
-                    <td>{data.cubicalDOTroomNumber}</td>
+                    <td>{data.employee.firstName}</td>
+                    <td>{data.cubical.roomNumber}</td>
                     <td>{data.startDate}</td>
                     <td>{data.endDate}</td>
                   </tr>

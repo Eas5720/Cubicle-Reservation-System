@@ -5,9 +5,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ReservationCreate() {  
+  const [employeeID, setEmployeeID] = useState({
+    id: localStorage.getItem("employeeID"),
+  });
 
   const [reservation, setReservation] = useState({
-    employee:null,
+    employee:employeeID,
     cubical:null,
     startDate: '',
     endDate: ''

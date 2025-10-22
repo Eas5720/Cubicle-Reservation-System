@@ -6,6 +6,8 @@ import ReservationCreate from './pages/ReservationCreate'
 import Login from './pages/Login'
 import CubicalCreate from './pages/CubicalCreate'
 import CubicalList from './pages/CubicalList'
+import AdminHome from './pages/AdminHome'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/reservationcreate" element={<ReservationCreate />} />
           <Route path="/cubicallist" element={<CubicalList />} />
           <Route path="/cubicalcreate" element={<CubicalCreate />} />
+          <Route path="/adminhome" element={<AdminHome />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
 
