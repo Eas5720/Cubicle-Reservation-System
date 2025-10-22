@@ -14,11 +14,13 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(employeeID != null && isAdmin!=null && JSON.parse(isAdmin)===true){
-        navigate('/adminhome');
-    }
-    else{
-        navigate('/home');
+    if(employeeID != null ){
+      if(isAdmin!=null && JSON.parse(isAdmin)===true){
+          navigate('/adminhome');
+      }
+      else{
+          navigate('/home');
+      }
     }
   }, [])
   const [login, setLogin] = useState({
