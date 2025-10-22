@@ -53,6 +53,7 @@ function Login() {
 
   return (
     <div>
+        <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
