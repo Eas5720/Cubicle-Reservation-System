@@ -17,9 +17,9 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary Key
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cubical cubical;
     private Date startDate;
     private Date endDate;

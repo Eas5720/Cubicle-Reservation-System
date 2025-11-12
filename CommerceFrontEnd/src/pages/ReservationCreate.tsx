@@ -29,7 +29,13 @@ function ReservationCreate() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      const response = await axios.post('/api/reservation', reservation);
+      //const response = await axios.post('/api/reservation', reservation);
+      const response = await axios.post('/api/reservation',{
+        employeeId: 1,
+        cubicalId: 1,
+        startDate: '',
+        endDate: ''
+      });
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
       //setReservation({employee:null, cubical:null, startDate: '', endDate: '' });

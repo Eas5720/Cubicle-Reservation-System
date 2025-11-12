@@ -3,6 +3,9 @@ package com.example.demo.service;
 import com.example.demo.domain.Cubical;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.Reservation;
+import com.example.demo.dto.ReservationRequest;
+import com.example.demo.repository.CubicalRepository;
+import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,24 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final EmployeeService employeeService;
-    private final CubicalService cubicalService;
+    private final EmployeeRepository employeeRepository;
+    private final CubicalRepository cubicalRepository;
 
     // Business logic described here
     // CRUD Create Read Update Delete are defined in the repository
     // Defined automatically
 
     @Transactional
-    public Reservation create(Reservation reservation){
+    public Reservation create(ReservationRequest reservationRequest){
+        Employee employee = employeeRepository.findById(reservationRequest.getEmployeeId()).orElseThrow();
+        Cubical cubical = cubicalRepository.findById(reservationRequest.getCubicalId()).orElseThrow();
+
+        Reservation reservation = new Reservation();
+        reservation.setEmployee(employee);
+        reservation.setCubical(cubical);
+        reservation.setStartDate(reservationRequest.getStartDate());
+        reservation.setEndDate(reservationRequest.getEndDate());
+
         return reservationRepository.save(reservation);
     }
 

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Reservation;
+import com.example.demo.dto.ReservationRequest;
 import com.example.demo.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,17 +15,8 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @GetMapping("/hello")
-    public String save(){
-
-        return "Hello World";
-
-    }
-
-    // GET "/students/{id}"
-
     @PostMapping("/reservation")
-    public ResponseEntity<?> save(@RequestBody Reservation reservation){
+    public ResponseEntity<?> save(@RequestBody ReservationRequest reservation){
         return new ResponseEntity<>(reservationService.create(reservation), HttpStatus.CREATED);
     }
 
