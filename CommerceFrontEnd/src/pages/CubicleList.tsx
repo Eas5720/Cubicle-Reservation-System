@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 
-function CubicalList() {
+function CubicleList() {
   const [data, setData] = useState<any[]>([])
   useEffect(()=>{
-    axios.get('/api/cubicals')
+    axios.get('/api/cubicles')
     .then(res => setData(res.data))
     .catch(err => console.log(err));
   }, [])
@@ -13,7 +13,7 @@ function CubicalList() {
   return (
     <div className='container'>
         <div className='mt-3'>
-          <h3>All Cubicals</h3>
+          <h3>All Cubicles</h3>
           <Table>
             <thead>
               <tr>
@@ -38,4 +38,4 @@ function CubicalList() {
     </div>
   );
 }
-export default CubicalList;
+export default CubicleList;

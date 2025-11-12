@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
-function CubicalCreate() {
-  const [cubical, setCubical] = useState({
+function CubicleCreate() {
+  const [cubicle, setCubicle] = useState({
     roomNumber: '',
     floor: ''
   }); //creates variables to store
@@ -11,8 +11,8 @@ function CubicalCreate() {
 
   const changeValue=(e)=>{
     //console.log(e);
-    setCubical({
-     ...cubical, [e.target.name]:e.target.value  
+    setCubicle({
+     ...cubicle, [e.target.name]:e.target.value  
     });
     //console.log(e.target.name + " name "  );
     //console.log(e.target.value + " value " );
@@ -21,13 +21,13 @@ function CubicalCreate() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      const response = await axios.post('/api/cubical', cubical);
-      console.log('Cubical saved:', response.data);
-      alert('Cubical saved successfully!');
-      //setCubical({ roomNumber: '', floor: '' });
+      const response = await axios.post('/api/cubicle', cubicle);
+      console.log('Cubicle saved:', response.data);
+      alert('Cubicle saved successfully!');
+      //setCubicle({ roomNumber: '', floor: '' });
     } catch (error) {
-      console.error('Error saving cubical:', error);
-      alert('Failed to save cubical.');
+      console.error('Error saving cubicle:', error);
+      alert('Failed to save cubicle.');
     }
   };
 
@@ -52,4 +52,4 @@ function CubicalCreate() {
     </div>
   );
 }
-export default CubicalCreate;
+export default CubicleCreate;

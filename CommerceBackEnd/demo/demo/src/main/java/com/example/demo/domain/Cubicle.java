@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity // All of these create the methods
-public class Cubical {
+public class Cubicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

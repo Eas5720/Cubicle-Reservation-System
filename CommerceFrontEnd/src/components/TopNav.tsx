@@ -22,10 +22,10 @@ function TopNav() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/reservationlist">ReservationList</Nav.Link>
-            <Nav.Link href="/cubicallist">CubicalList</Nav.Link>
+            <Nav.Link href="/cubiclelist">CubicleList</Nav.Link>
             <Nav.Link href="/employeelist">EmployeeList</Nav.Link>
             <Nav.Link href="/reservationcreate">ReservationCreate</Nav.Link>
-            <Nav.Link href="/cubicalcreate">CubicalCreate</Nav.Link>
+            <Nav.Link href="/cubiclecreate">CubicleCreate</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>

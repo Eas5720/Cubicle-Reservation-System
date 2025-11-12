@@ -20,7 +20,7 @@ public class Reservation {
     @ManyToOne
     private Employee employee;
     @ManyToOne
-    private Cubical cubical;
+    private Cubicle cubicle;
     private Date startDate;
     private Date endDate;
 }

@@ -16,7 +16,7 @@ function ReservationCreate() {
 
   const [reservation, setReservation] = useState({
     employeeId: employeeID,
-    cubicalId: 2,
+    cubicleId: 1,
     startDate: '',
     endDate: ''
   }); //creates variables to store
@@ -38,7 +38,6 @@ function ReservationCreate() {
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
-      //setReservation({employee:null, cubical:null, startDate: '', endDate: '' });
     } catch (error) {
       console.error('Error saving reservation:', error);
       alert('Failed to save reservation.');
