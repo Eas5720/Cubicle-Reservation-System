@@ -29,7 +29,6 @@ function TopNav() {
             <Nav.Link href="/login">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <p>{employeeID}</p>
         <Button onClick={handleClick}>Log Out</Button>
       </Container>
       

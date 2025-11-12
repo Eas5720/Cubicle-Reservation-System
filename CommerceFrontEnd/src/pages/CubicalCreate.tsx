@@ -9,16 +9,16 @@ function CubicalCreate() {
   }); //creates variables to store
 
 
-  const changeValue=(e: { target: { name: string; value: string; }; })=>{
-    console.log(e);
+  const changeValue=(e)=>{
+    //console.log(e);
     setCubical({
      ...cubical, [e.target.name]:e.target.value  
     });
-    console.log(e.target.name + " name "  );
-    console.log(e.target.value + " value " );
+    //console.log(e.target.name + " name "  );
+    //console.log(e.target.value + " value " );
   }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
       const response = await axios.post('/api/cubical', cubical);

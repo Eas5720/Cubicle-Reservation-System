@@ -9,8 +9,8 @@ function ReservationCreate() {
   const employeeID = 1;
 
   const [reservation, setReservation] = useState({
-    employee: 1,
-    cubical:1,
+    employee: null,
+    cubical:null,
     startDate: '',
     endDate: ''
   }); //creates variables to store
@@ -20,6 +20,8 @@ function ReservationCreate() {
     setReservation({
      ...reservation, [e.target.name]:e.target.value  
     });
+    //localStorage.setItem("startDate", response.data.id);
+    //localStorage.setItem("endDate", response.data.admin);
     console.log(e.target.name + " name "  );
     console.log(e.target.value + " value " );
   }

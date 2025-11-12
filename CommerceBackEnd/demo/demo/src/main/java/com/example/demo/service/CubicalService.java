@@ -29,6 +29,12 @@ public class CubicalService {
         return cubicalRepository.findById(id).orElse(null);
     }
 
+    public List<Cubical> findAllAvailable(String startdate, String enddate){
+        List<Cubical> availableCubicals = cubicalRepository.findAll();
+
+        return availableCubicals;
+    }
+
     public List<Cubical> findAll(){
         return cubicalRepository.findAll();
     }
