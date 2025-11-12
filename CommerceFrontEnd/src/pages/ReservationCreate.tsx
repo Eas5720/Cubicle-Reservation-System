@@ -6,11 +6,17 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ReservationCreate() {  
 
-  const employeeID = 1;
+  const [employeeIDString] = useState(
+    localStorage.getItem("employeeID")
+  );
+  let employeeID = 0;
+  if (employeeIDString!==null){
+    employeeID = parseInt(employeeIDString);
+  }
 
   const [reservation, setReservation] = useState({
-    employee: null,
-    cubical:null,
+    employeeId: employeeID,
+    cubicalId: 2,
     startDate: '',
     endDate: ''
   }); //creates variables to store
@@ -29,13 +35,13 @@ function ReservationCreate() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      //const response = await axios.post('/api/reservation', reservation);
-      const response = await axios.post('/api/reservation',{
+      const response = await axios.post('/api/reservation', reservation);
+      /*const response = await axios.post('/api/reservation',{
         employeeId: 1,
         cubicalId: 1,
         startDate: '',
         endDate: ''
-      });
+      });*/
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
       //setReservation({employee:null, cubical:null, startDate: '', endDate: '' });
