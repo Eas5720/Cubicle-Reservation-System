@@ -22,7 +22,7 @@ function ReservationCreate() {
 
   const [reservation, setReservation] = useState({
     employeeId: employeeID,
-    cubicleId: 1,
+    cubicleId: 0,
     startDate: startDate,
     endDate: endDate
   }); //creates variables to store
@@ -37,6 +37,20 @@ function ReservationCreate() {
     console.log(e.target.name + " name "  );
     console.log(e.target.value + " value " );
   }
+
+  /*useEffect(() => {
+    if (startDate && endDate) {
+      axios
+        .get("/api/cubicles/available", {
+          params: { startDate, endDate },
+        })
+        .then((res) => {
+          setData(res.data);
+          reservation.cubicleId=0; // reset selection when results change
+        })
+        .catch((err) => console.error(err))
+    }
+  }, [startDate, endDate]);*/
 
   const handleSearchAvailable = () => {
     if (!startDate || !endDate) {
@@ -53,6 +67,7 @@ function ReservationCreate() {
 
   const handleSelectCubicle = (id: number) => {
     reservation.cubicleId = id;
+    handleSubmit;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,7 +110,6 @@ function ReservationCreate() {
           Search
         </Button>
       </Form>
-
       <Table striped bordered hover>
         <thead>
           <tr>
