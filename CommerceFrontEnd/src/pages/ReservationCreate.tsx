@@ -14,11 +14,14 @@ function ReservationCreate() {
     employeeID = parseInt(employeeIDString);
   }
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   const [reservation, setReservation] = useState({
     employeeId: employeeID,
     cubicleId: 1,
-    startDate: '',
-    endDate: ''
+    startDate: startDate,
+    endDate: endDate
   }); //creates variables to store
 
   const changeValue=(e)=>{
@@ -35,6 +38,8 @@ function ReservationCreate() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
+      reservation.startDate = startDate;
+      reservation.endDate = endDate;
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
@@ -44,20 +49,18 @@ function ReservationCreate() {
     }
   };
 
-  const [startDate, setStartDate] = useState(new Date());
-
   return (
     
     <div>
       <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Start Date</Form.Label>
-              <Form.Control type="input" placeholder="start" name = "startDate" onChange={changeValue}/>
+              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>End Date</Form.Label>
-              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
           </Form.Group>
 
           <Button variant="primary" type="submit">
