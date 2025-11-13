@@ -13,6 +13,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    //This should be changed to a get mapping
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.login(employee), HttpStatus.OK);

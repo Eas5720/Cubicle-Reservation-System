@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final ReservationRepository reservationRepository;
 
     // Business logic described here
     // CRUD Create Read Update Delete are defined in the repository

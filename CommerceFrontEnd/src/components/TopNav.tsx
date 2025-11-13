@@ -9,6 +9,7 @@ function TopNav() {
   const [employeeID] = useState(
     localStorage.getItem("employeeID")
   );
+  
   const navigate = useNavigate();
   const handleClick = () =>{
     localStorage.clear();

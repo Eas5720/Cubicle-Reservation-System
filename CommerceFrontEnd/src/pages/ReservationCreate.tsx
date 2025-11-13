@@ -1,5 +1,109 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Button, Form, Table } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+function ReservationCreate() {  
+
+  const [employeeIDString] = useState(
+    localStorage.getItem("employeeID")
+  );
+  let employeeID = 0;
+  if (employeeIDString!==null){
+    employeeID = parseInt(employeeIDString);
+  }
+
+  //const [startDate, setStartDate] = useState(new Date());
+  //const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [data, setData] = useState<any[]>([])
+
+  const [reservation, setReservation] = useState({
+    employeeId: employeeID,
+    cubicleId: 1,
+    startDate: startDate,
+    endDate: endDate
+  }); //creates variables to store
+
+  const changeValue=(e)=>{
+    console.log(e);
+    setReservation({
+     ...reservation, [e.target.name]:e.target.value  
+    });
+    //localStorage.setItem("startDate", response.data.id);
+    //localStorage.setItem("endDate", response.data.admin);
+    console.log(e.target.name + " name "  );
+    console.log(e.target.value + " value " );
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();  
+    try {
+      reservation.startDate = startDate;
+      reservation.endDate = endDate;
+      const response = await axios.post('/api/reservation', reservation);
+      console.log('Reservation saved:', response.data);
+      alert('Reservation saved successfully!');
+    } catch (error) {
+      console.error('Error saving reservation:', error);
+      alert('Failed to save reservation.');
+    }
+  };
+
+  return (
+    
+    <div>
+      <Form className="mb-3 d-flex gap-2 align-items-end">
+        <div>
+          <Form.Label>Start Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <Form.Label>End Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)}
+          />
+        </div>
+
+        <Button onClick={handleSubmit} variant="primary">
+          Search
+        </Button>
+      </Form>
+
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Room Number</th>
+            <th>Floor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((cubicle, index) => (
+            <tr key={index}>
+              <td>{cubicle.id}</td>
+              <td>{cubicle.roomNumber}</td>
+              <td>{cubicle.floor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  );
+}
+export default ReservationCreate;
+/*
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -71,3 +175,4 @@ function ReservationCreate() {
   );
 }
 export default ReservationCreate;
+*/

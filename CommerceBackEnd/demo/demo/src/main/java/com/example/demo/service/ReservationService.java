@@ -39,14 +39,6 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    /*public Reservation create(Reservation reservation, Long employeeId, Long cubicalID){
-        Employee employee = employeeService.findById(employeeId);
-        Cubicle cubical = cubicalService.findById(cubicalID);
-        reservation.setEmployee(employee);
-        reservation.setCubicle(cubical);
-        return reservationRepository.save(reservation);
-    }*/
-
     public Reservation findById(long id){
         return reservationRepository.findById(id).orElse(null);
     }

@@ -28,7 +28,7 @@ public class CubicleController {
     }
 
     @GetMapping("/cubicles/available")
-    public ResponseEntity<?> findAllAvailable(@RequestParam String startDate, @RequestParam String endDate){
+    public ResponseEntity<?> findAllAvailable(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         return new ResponseEntity<>(
                 cubicleService.findAllAvailable(startDate, endDate), HttpStatus.OK);
     }
