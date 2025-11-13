@@ -9,7 +9,7 @@ function CubicleCreate() {
   }); //creates variables to store
 
 
-  const changeValue=(e)=>{
+  const changeValue=(e: { target: { name: any; value: any; }; })=>{
     //console.log(e);
     setCubicle({
      ...cubicle, [e.target.name]:e.target.value  

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @AllArgsConstructor
 public class CubicleController {
@@ -25,10 +27,10 @@ public class CubicleController {
                 cubicleService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/cubicles/{startdate}/{enddate}")
-    public ResponseEntity<?> findAllAvailable(@PathVariable String startdate, @PathVariable String enddate){
+    @GetMapping("/cubicles/available")
+    public ResponseEntity<?> findAllAvailable(@RequestParam String startDate, @RequestParam String endDate){
         return new ResponseEntity<>(
-                cubicleService.findAllAvailable(startdate, enddate), HttpStatus.OK);
+                cubicleService.findAllAvailable(startDate, endDate), HttpStatus.OK);
     }
 
 

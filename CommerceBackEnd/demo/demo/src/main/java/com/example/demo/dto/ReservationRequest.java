@@ -1,18 +1,17 @@
 package com.example.demo.dto;
 
 import lombok.Getter;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Getter
 public class ReservationRequest {
     private Long employeeId;
     private Long cubicleId;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    ReservationRequest(Long employeeId, Long cubicleId, Date startDate, Date endDate) {
+    ReservationRequest(Long employeeId, Long cubicleId, LocalDate startDate, LocalDate endDate) {
         this.employeeId = employeeId;
         this.cubicleId = cubicleId;
         this.startDate = startDate;

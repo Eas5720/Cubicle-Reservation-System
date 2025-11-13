@@ -31,7 +31,7 @@ function TopNav() {
         </Navbar.Collapse>
         <Button onClick={handleClick}>Log Out</Button>
       </Container>
-      
+      {employeeID}
     </Navbar>
   );
 }
