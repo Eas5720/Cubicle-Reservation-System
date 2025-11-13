@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+//import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ReservationCreate() {  
@@ -36,6 +36,23 @@ function ReservationCreate() {
     //localStorage.setItem("endDate", response.data.admin);
     console.log(e.target.name + " name "  );
     console.log(e.target.value + " value " );
+  }
+
+  const handleSearchAvailable = () => {
+    if (!startDate || !endDate) {
+      alert("Please select both start and end dates");
+      return;
+    }
+
+    axios.get('/api/cubicles/available', {
+      params: { startDate, endDate }
+    })
+    .then(res => setData(res.data))
+    .catch(err => console.log(err));
+  };
+
+  const handleSelectCubicle = (id: number) => {
+    reservation.cubicleId = id;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,7 +91,7 @@ function ReservationCreate() {
           />
         </div>
 
-        <Button onClick={handleSubmit} variant="primary">
+        <Button onClick={handleSearchAvailable} variant="primary">
           Search
         </Button>
       </Form>
@@ -82,21 +99,26 @@ function ReservationCreate() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Room Number</th>
             <th>Floor</th>
+            <th>Select</th>
           </tr>
         </thead>
         <tbody>
           {data.map((cubicle, index) => (
             <tr key={index}>
-              <td>{cubicle.id}</td>
               <td>{cubicle.roomNumber}</td>
               <td>{cubicle.floor}</td>
+              <td><Button onClick={() => handleSelectCubicle(cubicle.id)}>{reservation.cubicleId === cubicle.id ? "Selected" : "Select"}</Button></td>
             </tr>
           ))}
         </tbody>
       </Table>
+      {reservation.cubicleId && (
+        <div className="alert alert-info mt-3">
+          Selected Cubicle ID: {reservation.cubicleId}
+        </div>
+      )}
     </div>
   );
 }
