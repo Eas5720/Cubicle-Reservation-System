@@ -20,14 +20,14 @@ function ReservationCreate() {
   const [endDate, setEndDate] = useState("");
   const [data, setData] = useState<any[]>([])
 
-  const [reservation, setReservation] = useState({
+  const [reservation] = useState({
     employeeId: employeeID,
     cubicleId: 0,
     startDate: startDate,
     endDate: endDate
   }); //creates variables to store
 
-  const changeValue=(e)=>{
+  /*const changeValue=(e)=>{
     console.log(e);
     setReservation({
      ...reservation, [e.target.name]:e.target.value  
@@ -36,9 +36,9 @@ function ReservationCreate() {
     //localStorage.setItem("endDate", response.data.admin);
     console.log(e.target.name + " name "  );
     console.log(e.target.value + " value " );
-  }
+  }*/
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (startDate && endDate) {
       axios
         .get("/api/cubicles/available", {
@@ -50,9 +50,9 @@ function ReservationCreate() {
         })
         .catch((err) => console.error(err))
     }
-  }, [startDate, endDate]);*/
+  }, [startDate, endDate]);
 
-  const handleSearchAvailable = () => {
+  /*const handleSearchAvailable = () => {
     if (!startDate || !endDate) {
       alert("Please select both start and end dates");
       return;
@@ -63,18 +63,20 @@ function ReservationCreate() {
     })
     .then(res => setData(res.data))
     .catch(err => console.log(err));
-  };
+  };*/
 
-  const handleSelectCubicle = (id: number) => {
+  /*const handleSelectCubicle = (id: number) => {
     reservation.cubicleId = id;
+    alert("Selected cubicle ID: " + id);
     handleSubmit;
-  }
+  }*/
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();  
+  const handleSubmit = async (id: number) => {
+    //e.preventDefault();  
     try {
       reservation.startDate = startDate;
       reservation.endDate = endDate;
+      reservation.cubicleId = id;
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
@@ -105,10 +107,6 @@ function ReservationCreate() {
             onChange={e => setEndDate(e.target.value)}
           />
         </div>
-
-        <Button onClick={handleSearchAvailable} variant="primary">
-          Search
-        </Button>
       </Form>
       <Table striped bordered hover>
         <thead>
@@ -123,16 +121,11 @@ function ReservationCreate() {
             <tr key={index}>
               <td>{cubicle.roomNumber}</td>
               <td>{cubicle.floor}</td>
-              <td><Button onClick={() => handleSelectCubicle(cubicle.id)}>{reservation.cubicleId === cubicle.id ? "Selected" : "Select"}</Button></td>
+              <td><Button onClick={() => handleSubmit(cubicle.id)}>Reserve</Button></td>
             </tr>
           ))}
         </tbody>
       </Table>
-      {reservation.cubicleId && (
-        <div className="alert alert-info mt-3">
-          Selected Cubicle ID: {reservation.cubicleId}
-        </div>
-      )}
     </div>
   );
 }
