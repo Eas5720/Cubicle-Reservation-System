@@ -1,19 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-//import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate} from "react-router-dom";
 
 function ReservationConfirm() {  
-
-  const [employeeIDString] = useState(
-    localStorage.getItem("employeeID")
-  );
-  let employeeID = 0;
-  if (employeeIDString!==null){
-    employeeID = parseInt(employeeIDString);
-  }
 
   const location = useLocation();
   const { reservation } = location.state;
@@ -23,7 +14,10 @@ function ReservationConfirm() {
     navigate(-1);
   };
 
-  const [cubicle, setCubicle] = useState(null);
+  const [cubicle, setCubicle] = useState({
+    roomNumber: '',
+    floor: ''
+  });
 
   useEffect(() => {
     axios.get(`/api/cubicles/${reservation.cubicleId}`)
@@ -31,12 +25,13 @@ function ReservationConfirm() {
       .catch(err => console.error(err));
   }, [reservation.cubicleId]);
 
-  const handleSubmit = async () => {
+  const handleReservationCreate = async () => {
     //e.preventDefault();  
     try {
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
+      //TODO: Redirect to home reservation view
     } catch (error) {
       console.error('Error saving reservation:', error);
       alert('Failed to save reservation.');
@@ -65,7 +60,7 @@ function ReservationConfirm() {
           </tr>
         </tbody>
       </Table>
-      <Button onClick={handleSubmit}>Confirm</Button>
+      <Button onClick={handleReservationCreate}>Confirm</Button>
       <Button className='cancelButton' onClick={handleCancel}>Cancel</Button>
     </div>
   );

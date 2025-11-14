@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +43,18 @@ public class ReservationService {
 
     public Reservation findById(long id){
         return reservationRepository.findById(id).orElse(null);
+    }
+
+    public List<Reservation> findAllByEmployeeId(long id){
+        List<Reservation> allReservations = reservationRepository.findAll();
+        List<Reservation> reservations = new ArrayList<>();
+        Employee employee = employeeRepository.findById(id).orElseThrow();
+        for (Reservation reservation : allReservations){
+            if(reservation.getEmployee() == employee){
+                reservations.add(reservation);
+            }
+        }
+        return reservations;
     }
 
     public List<Reservation> findAll() {

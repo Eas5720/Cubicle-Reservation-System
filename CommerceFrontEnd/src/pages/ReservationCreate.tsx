@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
-//import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +14,6 @@ function ReservationCreate() {
     employeeID = parseInt(employeeIDString);
   }
 
-  //const [startDate, setStartDate] = useState(new Date());
-  //const [endDate, setEndDate] = useState(new Date());
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [data, setData] = useState<any[]>([])
@@ -84,7 +81,6 @@ function ReservationCreate() {
   };
 
   return (
-    
     <div>
       <Form className="mb-3 d-flex gap-2 align-items-end">
         <div>

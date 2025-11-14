@@ -45,8 +45,6 @@ public class CubicleService {
                 availableCubicles.remove(reservation.getCubicle());
             }
         }
-
-
         return availableCubicles;
     }
 

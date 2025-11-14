@@ -27,5 +27,14 @@ public class ReservationController {
                 reservationService.findAll(), HttpStatus.OK);
     }
 
-
+    @GetMapping("/reservations/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return new ResponseEntity<>(
+                reservationService.findById(id), HttpStatus.OK);
+    }
+    @GetMapping("/reservations/employees/{id}")
+    public ResponseEntity<?> findAllByEmployeeId(@PathVariable Long id){
+        return new ResponseEntity<>(
+                reservationService.findAllByEmployeeId(id), HttpStatus.OK);
+    }
 }
