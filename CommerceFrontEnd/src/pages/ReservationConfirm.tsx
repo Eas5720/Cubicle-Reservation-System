@@ -36,8 +36,7 @@ function ReservationConfirm() {
     try {
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
-      
-      //alert('Reservation saved successfully!');
+      alert('Reservation saved successfully!');
     } catch (error) {
       console.error('Error saving reservation:', error);
       alert('Failed to save reservation.');
