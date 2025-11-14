@@ -9,7 +9,7 @@ function TopNav() {
   const [employeeID] = useState(
     localStorage.getItem("employeeID")
   );
-  
+
   const navigate = useNavigate();
   const handleClick = () =>{
     localStorage.clear();
@@ -18,15 +18,10 @@ function TopNav() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
-        <Navbar.Brand href="#home">Temporary Navigation Bar</Navbar.Brand>
+        <Navbar.Brand href="#home">Commerce Bank</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/reservationlist">ReservationList</Nav.Link>
-            <Nav.Link href="/cubiclelist">CubicleList</Nav.Link>
-            <Nav.Link href="/employeelist">EmployeeList</Nav.Link>
-            <Nav.Link href="/reservationcreate">ReservationCreate</Nav.Link>
-            <Nav.Link href="/cubiclecreate">CubicleCreate</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -38,3 +33,9 @@ function TopNav() {
 }
 
 export default TopNav;
+
+/*            <Nav.Link href="/reservationlist">ReservationList</Nav.Link>
+            <Nav.Link href="/cubiclelist">CubicleList</Nav.Link>
+            <Nav.Link href="/employeelist">EmployeeList</Nav.Link>
+            <Nav.Link href="/reservationcreate">ReservationCreate</Nav.Link>
+            <Nav.Link href="/cubiclecreate">CubicleCreate</Nav.Link>*/
