@@ -10,6 +10,7 @@ import AdminHome from './pages/AdminHome'
 import Home from './pages/Home'
 import EmployeeList from './pages/EmployeeList'
 import NewPage from './pages/NewPage'
+import ReservationConfirm from './pages/ReservationConfirm'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/reservationlist" element={<ReservationList />} />
           <Route path="/reservationcreate" element={<ReservationCreate />} />
+          <Route path="reservationcreate/reservationconfirm" element={<ReservationConfirm />} />
           <Route path="/cubiclelist" element={<CubicleList />} />
           <Route path="/cubiclecreate" element={<CubicleCreate />} />
           <Route path="/employeelist" element={<EmployeeList />} />

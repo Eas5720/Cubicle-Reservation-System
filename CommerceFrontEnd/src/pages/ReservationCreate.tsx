@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 //import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 function ReservationCreate() {  
 
@@ -70,20 +71,16 @@ function ReservationCreate() {
     alert("Selected cubicle ID: " + id);
     handleSubmit;
   }*/
-
+  const navigate = useNavigate();
   const handleSubmit = async (id: number) => {
-    //e.preventDefault();  
-    try {
-      reservation.startDate = startDate;
-      reservation.endDate = endDate;
-      reservation.cubicleId = id;
-      const response = await axios.post('/api/reservation', reservation);
-      console.log('Reservation saved:', response.data);
-      alert('Reservation saved successfully!');
-    } catch (error) {
-      console.error('Error saving reservation:', error);
-      alert('Failed to save reservation.');
-    }
+    reservation.startDate = startDate;
+    reservation.endDate = endDate;
+    reservation.cubicleId = id;
+    navigate('reservationconfirm',{
+      state: {
+        reservation
+      }
+    });
   };
 
   return (
