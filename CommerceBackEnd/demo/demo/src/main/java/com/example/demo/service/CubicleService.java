@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Cubicle;
+import com.example.demo.domain.Employee;
 import com.example.demo.domain.Reservation;
 import com.example.demo.repository.CubicleRepository;
 import com.example.demo.repository.ReservationRepository;
@@ -27,7 +28,7 @@ public class CubicleService {
         return cubicleRepository.save(cubicle);
 
     }
-
+    @Transactional
     public Cubicle findById(Long id){
         return cubicleRepository.findById(id).orElse(null);
     }

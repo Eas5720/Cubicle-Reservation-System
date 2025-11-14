@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Form, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 //import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 
 function ReservationConfirm() {  
 
@@ -23,6 +23,14 @@ function ReservationConfirm() {
     navigate(-1);
   };
 
+  const [cubicle, setCubicle] = useState(null);
+
+  useEffect(() => {
+    axios.get(`/api/cubicles/${reservation.cubicleId}`)
+      .then(res => setCubicle(res.data))
+      .catch(err => console.error(err));
+  }, [reservation.cubicleId]);
+
   const handleSubmit = async () => {
     //e.preventDefault();  
     try {
@@ -34,7 +42,7 @@ function ReservationConfirm() {
       alert('Failed to save reservation.');
     }
   };
-
+  if (!cubicle) return <p>Loading cubicle details...</p>;
   return (
     
     <div>
@@ -44,14 +52,16 @@ function ReservationConfirm() {
           <tr>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Cubical</th>
+            <th>Cubical Number</th>
+            <th>Cubical Floor</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{reservation.startDate}</td>
             <td>{reservation.endDate}</td>
-            <td>{reservation.cubicleId}</td>
+            <td>{cubicle.roomNumber}</td>
+            <td>{cubicle.floor}</td>
           </tr>
         </tbody>
       </Table>

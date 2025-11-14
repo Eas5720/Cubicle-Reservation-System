@@ -27,6 +27,12 @@ public class CubicleController {
                 cubicleService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/cubicles/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return new ResponseEntity<>(
+                cubicleService.findById(id), HttpStatus.OK);
+    }
+
     @GetMapping("/cubicles/available")
     public ResponseEntity<?> findAllAvailable(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         return new ResponseEntity<>(
