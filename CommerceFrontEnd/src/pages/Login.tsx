@@ -4,18 +4,17 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
+import getIsAdmin from "../hooks/getIsAdmin";
 
 function Login() {
   const employeeID = getCurrentEmployeeID();
-  const [isAdmin] = useState(
-    localStorage.getItem("isAdmin")
-  );
+  const isAdmin = getIsAdmin();
 
   const navigate = useNavigate();
 
   useEffect(()=>{
     if(employeeID != 0){
-      if(isAdmin!=null && JSON.parse(isAdmin)===true){
+      if(isAdmin==true){
           navigate('/adminhome');
       }
       else{
