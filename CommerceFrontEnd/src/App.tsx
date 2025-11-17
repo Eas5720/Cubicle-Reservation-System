@@ -11,7 +11,7 @@ import Home from './pages/Home'
 import EmployeeList from './pages/EmployeeList'
 import NewPage from './pages/NewPage'
 import ReservationConfirm from './pages/ReservationConfirm'
-import ReservationEmployeeList from './pages/ReservationEmployeeList'
+import EmployeeViewReservations from './pages/EmployeeViewReservations'
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/reservationlist" element={<ReservationList />} />
-          <Route path="/reservationemployeelist" element={<ReservationEmployeeList />} />
+          <Route path="/employeeviewreservations" element={<EmployeeViewReservations />} />
           <Route path="/reservationcreate" element={<ReservationCreate />} />
           <Route path="reservationcreate/reservationconfirm" element={<ReservationConfirm />} />
           <Route path="/cubiclelist" element={<CubicleList />} />

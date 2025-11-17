@@ -7,7 +7,7 @@ function Home() {
     navigate('/reservationcreate');
   }
   const handleClickView = () =>{
-    navigate('/reservationemployeelist');
+    navigate('/employeeviewreservations');
   }
   return (
     <div>
