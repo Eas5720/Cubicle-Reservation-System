@@ -14,14 +14,14 @@ function ReservationConfirm() {
     navigate(-1);
   };
 
-  const [cubicle, setCubicle] = useState({
+  const [cubicle, setCubicle] = useState({/*AAAAAAAAAAAAAAAAAA*/
     roomNumber: '',
     floor: ''
   });
 
   useEffect(() => {
     axios.get(`/api/cubicles/${reservation.cubicleId}`)
-      .then(res => setCubicle(res.data))
+      .then(res => setCubicle(res.data))/*AAAAAAAAAAAAAAAAAA*/
       .catch(err => console.error(err));
   }, [reservation.cubicleId]);
 
@@ -42,7 +42,7 @@ function ReservationConfirm() {
     
     <div>
       <h1>Confirm Reservation?</h1>
-      <Table>
+      <Table bordered>
         <thead>
           <tr>
             <th>Start Date</th>

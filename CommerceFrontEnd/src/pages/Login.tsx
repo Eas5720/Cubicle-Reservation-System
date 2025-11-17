@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import TopNav from "../components/TopNav";
+import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
 
 function Login() {
-  const [employeeID] = useState(
-    localStorage.getItem("employeeID")
-  );
+  const employeeID = getCurrentEmployeeID();
   const [isAdmin] = useState(
     localStorage.getItem("isAdmin")
   );
@@ -14,7 +14,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(employeeID != null ){
+    if(employeeID != 0){
       if(isAdmin!=null && JSON.parse(isAdmin)===true){
           navigate('/adminhome');
       }
@@ -42,13 +42,12 @@ function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  
     try {
-      const response = await axios.post('/api/login', login);
+      const response = await axios.post('/api/employee/login', login);
       if (response.data.id == null){
-        //console.log('Login attempt:', response.data);
+        //TODO: Make this be part of the thing and not just front end
         alert('Username or Password incorrect');
       }
       else{
-        //console.log('Login attempt:', response.data);
         localStorage.setItem("employeeID", response.data.id);
         localStorage.setItem("isAdmin", response.data.admin);
         if(response.data.admin){
@@ -59,13 +58,13 @@ function Login() {
         setLogin({ email: '', password: '' });
       }
     } catch (error) {
-      //console.error('Error logging in:', error);
       alert('Failed to log in.');
     }
   };
 
   return (
     <div>
+      <TopNav/>
         <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -11,8 +11,9 @@ function Home() {
   }
   return (
     <div>
-        <Button onClick={handleClick}>Create Reservation</Button>
-        <Button onClick={handleClickView}>View Reservations</Button>
+      <h1>Welcome</h1>
+      <Button onClick={handleClick}>Create Reservation</Button>
+      <Button onClick={handleClickView}>View Reservations</Button>
     </div>
   );
 }

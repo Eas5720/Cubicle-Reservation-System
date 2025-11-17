@@ -1,24 +1,37 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
+import getCurrentEmployeeID from '../hooks/getCurrentEmployeeID';
 
 function TopNav() {
-  const [employeeIDString] = useState(
-    localStorage.getItem("employeeID")
-  );
-  let employeeID = 0;
-  if (employeeIDString!==null){
-    employeeID = parseInt(employeeIDString);
-  }
+  const employeeID = getCurrentEmployeeID();
+  
+  //const [employeeData, setEmployeeData] = useState<any[]>([])
+  const [employeeData, setEmployeeData] = useState({/*AAAAAAAAAAAAAAAAAA*/
+    firstName: '',
+    lastname: '',
+    email: '',
+    password: ''
+  });
+  useEffect(()=>{
+    axios.get(`/api/employees/${employeeID}`)
+    .then(res => setEmployeeData(res.data))/*AAAAAAAAAAAAAAAAAA*/
+    .catch(err => console.log(err));
+  }, [employeeID])
 
+  //log out function
   const navigate = useNavigate();
   const handleClick = () =>{
     localStorage.clear();
     navigate('/login');
   }
+
+  
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
@@ -26,12 +39,12 @@ function TopNav() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/home">Home</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Button onClick={handleClick}>Log Out</Button>
       </Container>
-      {employeeID}
+      {employeeData.firstName}
     </Navbar>
   );
 }

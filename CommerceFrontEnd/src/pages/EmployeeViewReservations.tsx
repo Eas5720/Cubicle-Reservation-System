@@ -1,20 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import CancelReservationButton from "../components/CancelReservationButton";
+import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
 
 function EmployeeViewReservations() {
-  const [employeeIDString] = useState(
-    localStorage.getItem("employeeID")
-  );
-  let employeeID = 0;
-  if (employeeIDString!==null){
-    employeeID = parseInt(employeeIDString);
-  }
+  const employeeID = getCurrentEmployeeID();
 
-  const [data, setData] = useState<any[]>([])
+  //TODO: Standardize the naming conventions here
+  const [reservationData, setReservationData] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
   useEffect(()=>{
     axios.get(`/api/reservations/employees/${employeeID}`)
-    .then(res => setData(res.data))
+    .then(res => setReservationData(res.data))/*AAAAAAAAAAAAAAAAAA*/
     .catch(err => console.log(err));
   }, [employeeID])
 
@@ -35,18 +32,19 @@ function EmployeeViewReservations() {
             </thead>
             <tbody>
               {
-                data.map((data, index) =>{
+                reservationData.map((data, index) =>{
                   return <tr key={index}>
                     <td>{data.cubicle.roomNumber}</td>
-                    <td>{data.cubicle.roomNumber}</td>
+                    <td>{data.cubicle.floor}</td>
                     <td>{data.startDate}</td>
                     <td>{data.endDate}</td>
-                    <td>Future Cancel Button</td>
+                    <td><CancelReservationButton/></td>
                   </tr>
                 }) 
               }
             </tbody>
           </Table>
+          
         </div>
     </div>
   );
