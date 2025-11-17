@@ -6,9 +6,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 
 function TopNav() {
-  const [employeeID] = useState(
+  const [employeeIDString] = useState(
     localStorage.getItem("employeeID")
   );
+  let employeeID = 0;
+  if (employeeIDString!==null){
+    employeeID = parseInt(employeeIDString);
+  }
 
   const navigate = useNavigate();
   const handleClick = () =>{

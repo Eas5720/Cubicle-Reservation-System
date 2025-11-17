@@ -10,13 +10,6 @@ function EmployeeViewReservations() {
   if (employeeIDString!==null){
     employeeID = parseInt(employeeIDString);
   }
-  
-  /*const [data, setData] = useState<any[]>([])
-  useEffect(() => {
-    axios.get(`/api/reservations/${employeeID}`)
-      .then(res => setData(res.data))
-      .catch(err => console.error(err));
-  }, [employeeID]);*/
 
   const [data, setData] = useState<any[]>([])
   useEffect(()=>{

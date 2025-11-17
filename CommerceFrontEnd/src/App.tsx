@@ -9,7 +9,6 @@ import CubicleList from './pages/CubicleList'
 import AdminHome from './pages/AdminHome'
 import Home from './pages/Home'
 import EmployeeList from './pages/EmployeeList'
-import NewPage from './pages/NewPage'
 import ReservationConfirm from './pages/ReservationConfirm'
 import EmployeeViewReservations from './pages/EmployeeViewReservations'
 
@@ -29,7 +28,6 @@ function App() {
           <Route path="/employeelist" element={<EmployeeList />} />
           <Route path="/adminhome" element={<AdminHome />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/newpage" element={<NewPage />} />
         </Routes>
       </div>
 
