@@ -7,11 +7,10 @@ import { useAuth } from "../context/AuthContext";
 function EmployeeViewReservations() {
   const {employeeID} = useAuth();
 
-  //TODO: Standardize the naming conventions here
-  const [reservation, setReservation] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
+  const [reservation, setReservation] = useState<any[]>([])
   useEffect(()=>{
     axios.get(`/api/reservations/employees/${employeeID}`)
-    .then(res => setReservation(res.data))/*AAAAAAAAAAAAAAAAAA*/
+    .then(res => setReservation(res.data))
     .catch(err => console.log(err));
   }, [employeeID])
 

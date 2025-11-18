@@ -1,25 +1,25 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-//import getCurrentEmployeeID from '../hooks/getCurrentEmployeeID';
 import { useAuth } from '../context/AuthContext';
+import getEmployee from '../hooks/getEmployee';
 
 function TopNav() {
   const { employeeID, handleLogout } = useAuth();
-  const [employee, setEmployee] = useState({//AAAAAAAAAAAAAAAAAA/
-    firstName: '',
-    lastname: ''
-  });
+  const employee = getEmployee();
 
+  // This code is now in the getEmployee hook
+  /*const [employee, setEmployee] = useState({
+    firstName: '',
+    lastName: ''
+  });
   useEffect(() => {
     axios
       .get(`/api/employees/${employeeID}`)
       .then((res) => setEmployee(res.data))
       .catch((err) => console.log(err));
-  }, [employeeID]);
+  }, [employeeID]); */
 
   //log out function
   const handleClick = () => {
@@ -37,10 +37,16 @@ function TopNav() {
             <Nav.Link href="/home">Home</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        {employeeID && <span className="me-3">Welcome, {employee.firstName}</span>}
-        <Button variant="outline-danger" onClick={handleClick}>
-          Log Out
-        </Button>
+        
+        {employeeID && <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {employeeID && <span className="me-3">{employee.firstName} {employee.lastName}</span>}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleClick}>Log Out</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>}
       </Container>
     </Navbar>
   );

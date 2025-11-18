@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../components/TopNav";
-//import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
-//import getIsAdmin from "../hooks/getIsAdmin";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {

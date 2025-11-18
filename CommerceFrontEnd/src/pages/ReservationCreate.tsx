@@ -10,7 +10,7 @@ function ReservationCreate() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [cubical, setCubical] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
+  const [cubical, setCubical] = useState<any[]>([])
   const [reservation] = useState({
     employeeId: employeeID,
     cubicleId: 0,
@@ -24,7 +24,7 @@ function ReservationCreate() {
           params: { startDate, endDate },
         })
         .then((res) => {
-          setCubical(res.data); /*AAAAAAAAAAAAAAAAAA*/
+          setCubical(res.data); 
           reservation.cubicleId = 0; // reset selection when results change
         })
         .catch((err) => console.error(err))
