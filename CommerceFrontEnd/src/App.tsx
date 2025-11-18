@@ -11,10 +11,11 @@ import Home from './pages/Home'
 import EmployeeList from './testpages/EmployeeList'
 import ReservationConfirm from './pages/ReservationConfirm'
 import EmployeeViewReservations from './pages/EmployeeViewReservations'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <TopNav/>
       <div className="container mt-4">
         <Routes>
@@ -31,7 +32,7 @@ function App() {
         </Routes>
       </div>
 
-    </>
+    </AuthProvider>
   )
 }
 

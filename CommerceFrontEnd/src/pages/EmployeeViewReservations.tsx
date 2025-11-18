@@ -2,16 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
-import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
+import { useAuth } from "../context/AuthContext";
 
 function EmployeeViewReservations() {
-  const employeeID = getCurrentEmployeeID();
+  const {employeeID} = useAuth();
 
   //TODO: Standardize the naming conventions here
-  const [reservationData, setReservationData] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
+  const [reservation, setReservation] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
   useEffect(()=>{
     axios.get(`/api/reservations/employees/${employeeID}`)
-    .then(res => setReservationData(res.data))/*AAAAAAAAAAAAAAAAAA*/
+    .then(res => setReservation(res.data))/*AAAAAAAAAAAAAAAAAA*/
     .catch(err => console.log(err));
   }, [employeeID])
 
@@ -32,12 +32,12 @@ function EmployeeViewReservations() {
             </thead>
             <tbody>
               {
-                reservationData.map((data, index) =>{
+                reservation.map((reservation, index) =>{
                   return <tr key={index}>
-                    <td>{data.cubicle.roomNumber}</td>
-                    <td>{data.cubicle.floor}</td>
-                    <td>{data.startDate}</td>
-                    <td>{data.endDate}</td>
+                    <td>{reservation.cubicle.roomNumber}</td>
+                    <td>{reservation.cubicle.floor}</td>
+                    <td>{reservation.startDate}</td>
+                    <td>{reservation.endDate}</td>
                     <td><CancelReservationButton/></td>
                   </tr>
                 }) 

@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import getCurrentEmployeeID from "../hooks/getCurrentEmployeeID";
+import { useAuth } from "../context/AuthContext";
 
 function ReservationCreate() {  
-  const employeeID = getCurrentEmployeeID();
+  const {employeeID} = useAuth();
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [cubicalData, setCubicalData] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
+  const [cubical, setCubical] = useState<any[]>([])/*AAAAAAAAAAAAAAAAAA*/
   const [reservation] = useState({
     employeeId: employeeID,
     cubicleId: 0,
@@ -24,7 +24,7 @@ function ReservationCreate() {
           params: { startDate, endDate },
         })
         .then((res) => {
-          setCubicalData(res.data); /*AAAAAAAAAAAAAAAAAA*/
+          setCubical(res.data); /*AAAAAAAAAAAAAAAAAA*/
           reservation.cubicleId = 0; // reset selection when results change
         })
         .catch((err) => console.error(err))
@@ -73,7 +73,7 @@ function ReservationCreate() {
           </tr>
         </thead>
         <tbody>
-          {cubicalData.map((cubicle, index) => (
+          {cubical.map((cubicle, index) => (
             <tr key={index}>
               <td>{cubicle.roomNumber}</td>
               <td>{cubicle.floor}</td>
