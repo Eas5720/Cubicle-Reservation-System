@@ -4,12 +4,10 @@ import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useNavigate } from 'react-router-dom';
 //import getCurrentEmployeeID from '../hooks/getCurrentEmployeeID';
 import { useAuth } from '../context/AuthContext';
 
 function TopNav() {
-  const navigate = useNavigate();
   const { employeeID, handleLogout } = useAuth();
   const [employee, setEmployee] = useState({//AAAAAAAAAAAAAAAAAA/
     firstName: '',
@@ -26,7 +24,7 @@ function TopNav() {
   //log out function
   const handleClick = () => {
     handleLogout();
-    navigate("/login", { replace: true }); // prevent back navigation to protected pages
+    //navigate("/login", { replace: true }); // prevent back navigation to protected pages
   };
 
   return (

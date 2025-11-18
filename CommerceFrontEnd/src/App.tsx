@@ -12,6 +12,7 @@ import EmployeeList from './testpages/EmployeeList'
 import ReservationConfirm from './pages/ReservationConfirm'
 import EmployeeViewReservations from './pages/EmployeeViewReservations'
 import { AuthProvider } from './context/AuthContext'
+import ConfirmLogin from './components/ConfirmLogin'
 
 function App() {
   return (
@@ -20,18 +21,39 @@ function App() {
       <div className="container mt-4">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/reservationlist" element={<ReservationList />} />
-          <Route path="/employeeviewreservations" element={<EmployeeViewReservations />} />
-          <Route path="/reservationcreate" element={<ReservationCreate />} />
-          <Route path="reservationcreate/reservationconfirm" element={<ReservationConfirm />} />
+          <Route path="/home" element={
+            <ConfirmLogin nonAdminOnly>
+              <Home />
+            </ConfirmLogin>
+          } />
+          <Route path="/reservationcreate" element={
+            <ConfirmLogin nonAdminOnly>
+              <ReservationCreate />
+            </ConfirmLogin>
+          } />
+          <Route path="reservationcreate/reservationconfirm" element={
+            <ConfirmLogin nonAdminOnly>
+              <ReservationConfirm />
+            </ConfirmLogin>
+          } />
+          <Route path="/employeeviewreservations" element={
+            <ConfirmLogin nonAdminOnly>
+            <EmployeeViewReservations />
+            </ConfirmLogin>
+          } />
+
+          <Route path="/adminhome" element={
+            <ConfirmLogin adminOnly>
+              <AdminHome />
+            </ConfirmLogin>
+          } />
+          
           <Route path="/cubiclelist" element={<CubicleList />} />
           <Route path="/cubiclecreate" element={<CubicleCreate />} />
           <Route path="/employeelist" element={<EmployeeList />} />
-          <Route path="/adminhome" element={<AdminHome />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/reservationlist" element={<ReservationList />} />
         </Routes>
       </div>
-
     </AuthProvider>
   )
 }
