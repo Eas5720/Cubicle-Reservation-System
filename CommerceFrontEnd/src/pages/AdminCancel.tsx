@@ -1,5 +1,5 @@
 import React from "react";
-import ReservationList from "./ReservationList"; 
+import ReservationList from "../testpages/ReservationList";
 function AdminCancel() {
   return (
     <div>
