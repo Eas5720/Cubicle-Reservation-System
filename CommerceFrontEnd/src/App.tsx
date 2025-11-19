@@ -13,7 +13,7 @@ import ReservationConfirm from './pages/ReservationConfirm'
 import EmployeeViewReservations from './pages/EmployeeViewReservations'
 import { AuthProvider } from './context/AuthContext'
 import ConfirmLogin from './components/ConfirmLogin'
-
+import AdminCancel from './pages/AdminCancel'
 function App() {
   return (
     <AuthProvider>
@@ -45,6 +45,12 @@ function App() {
           <Route path="/adminhome" element={
             <ConfirmLogin adminOnly>
               <AdminHome />
+            </ConfirmLogin>
+          } />
+
+          <Route path="/admincancel" element={
+            <ConfirmLogin adminOnly>
+              <AdminCancel />
             </ConfirmLogin>
           } />
           
