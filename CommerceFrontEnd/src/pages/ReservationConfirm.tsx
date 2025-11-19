@@ -19,6 +19,7 @@ function ReservationConfirm() {
     floor: ''
   });
 
+  
   useEffect(() => {
     axios.get(`/api/cubicles/${reservation.cubicleId}`)
       .then(res => setCubicle(res.data))
