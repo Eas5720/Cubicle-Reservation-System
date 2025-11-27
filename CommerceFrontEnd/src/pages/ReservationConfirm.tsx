@@ -32,6 +32,7 @@ function ReservationConfirm() {
       const response = await axios.post('/api/reservation', reservation);
       console.log('Reservation saved:', response.data);
       alert('Reservation saved successfully!');
+      navigate('/home');
       //TODO: Redirect to home reservation view
     } catch (error) {
       console.error('Error saving reservation:', error);

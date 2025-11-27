@@ -37,4 +37,11 @@ public class ReservationController {
         return new ResponseEntity<>(
                 reservationService.findAllByEmployeeId(id), HttpStatus.OK);
     }
+
+    @DeleteMapping("/reservations/{id}")
+    public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
+        reservationService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

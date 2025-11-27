@@ -61,5 +61,8 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public void delete(Long id) {
+        reservationRepository.deleteById(id);
+    }
 
 }
