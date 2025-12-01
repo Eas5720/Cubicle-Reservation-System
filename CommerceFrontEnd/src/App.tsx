@@ -14,6 +14,7 @@ import EmployeeViewReservations from './pages/EmployeeViewReservations'
 import { AuthProvider } from './context/AuthContext'
 import ConfirmLogin from './components/ConfirmLogin'
 import AdminCancel from './pages/AdminCancel'
+import AdminCancelByCubicle from './pages/AdminCancelByCubicle'
 function App() {
   return (
     <AuthProvider>
@@ -51,6 +52,12 @@ function App() {
           <Route path="/admincancel" element={
             <ConfirmLogin adminOnly>
               <AdminCancel />
+            </ConfirmLogin>
+          } />
+
+          <Route path="/admincancelbycubicle" element={
+            <ConfirmLogin adminOnly>
+              <AdminCancelByCubicle />
             </ConfirmLogin>
           } />
           
