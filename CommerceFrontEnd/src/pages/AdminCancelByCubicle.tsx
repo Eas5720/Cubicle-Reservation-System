@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
+import { Button } from "react-bootstrap";
 
 //define filter object
 interface Filter {
@@ -36,7 +37,7 @@ function AdminCancelByCubicle() {
 
   useEffect(() => {
     //create the list of filtered cublices and/or floors, excluding empty rows
-    const activeFilters = filters.filter(f => f.floor || f.cubicle);
+    const activeFilters = filters.filter(f => f.floor !== "" || f.cubicle !== "");
 
     //if no filters then show whole table
     if (activeFilters.length === 0) {
@@ -48,10 +49,10 @@ function AdminCancelByCubicle() {
     const filtered = allReservations.filter(reservation =>
       //check if the reservation matches any active filters (.some returns true if it matches either floor or cubicle)
       activeFilters.some(f =>
-        //!f.floor and !f.cubicle check if the filter is empty and ignores it if so
+        //check f.floor and f.cubicle to see if the filter is empty and ignores it if so
         //if not, compare filtered floor/cubicle as string to see if it should be displayed
-        (!f.floor || reservation.cubicle.floor.toString() === f.floor) &&
-        (!f.cubicle || reservation.cubicle.roomNumber === f.cubicle)
+        (f.floor === "" || reservation.cubicle.floor.toString() === f.floor) &&
+        (f.cubicle === "" || reservation.cubicle.roomNumber === f.cubicle)
       )
     );
 
@@ -62,7 +63,10 @@ function AdminCancelByCubicle() {
   //handleInputChange updates the filters when an input field is typed into and creates a new inpt field when the last one is modified
   const handleInputChange = (index: number, field: "floor" | "cubicle", value: string) => {
     //create a copy of the filters array
-    const newFilters = [...filters];
+    const newFilters = [];
+    for (let i = 0; i < filters.length; i++) {
+      newFilters.push(filters[i]);
+  }
     //update the field at the given row/index
     newFilters[index][field] = value;
 
@@ -75,6 +79,36 @@ function AdminCancelByCubicle() {
     setFilters(newFilters);
   };
 
+//cancel all button
+const cancelAll = async () => {
+  //declare first and last id of the filtered reservation list
+  const firstId = filteredReservations[0].id;
+  const lastId = filteredReservations[filteredReservations.length - 1].id;
+  try {
+    //loop through indexes between the first and last id
+    for (let id = firstId; id <= lastId; id++) {
+      let reservationExists = false;
+      //loop through the filteredReservations objects to see if they any match the current possible id
+      for (let i = 0; i < filteredReservations.length; i++) {
+        if (filteredReservations[i].id === id) {
+          reservationExists = true;
+          break;
+        }
+      }
+      //if one is found that matches, delete that entry
+      if (reservationExists) {
+        await axios.delete(`/api/reservations/${id}`);
+      }
+    }
+    alert("Reservations canceled");
+    window.location.reload();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to cancel reservation");
+  }
+};
+
+
   return (
     <div className="container">
       <h3 className="mt-3">Reservations By Cubicle</h3>
@@ -86,11 +120,12 @@ function AdminCancelByCubicle() {
           <input placeholder="Floor" value={filter.floor} onChange={(e) => handleInputChange(index, "floor", e.target.value)}/>
         </div>
       ))}
+      <Button style={{ margin: "10px" }} variant="danger" onClick={cancelAll}>Cancel All</Button>
 
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
-            <th style={{ display: "none" }}>ID</th>
+            <th style={{ display: "none"  }}>ID</th>
             <th>Employee</th>
             <th>Room Number</th>
             <th>Floor</th>
@@ -100,7 +135,7 @@ function AdminCancelByCubicle() {
           </tr>
         </thead>
         <tbody>
-          {/*display table maped to filteredReservations*/}
+          {/*display table mapped to filteredReservations*/}
           {filteredReservations.map((reservation, index) => (
             <tr key={index}>
               <td style={{ display: "none" }}>{reservation.id}</td>
