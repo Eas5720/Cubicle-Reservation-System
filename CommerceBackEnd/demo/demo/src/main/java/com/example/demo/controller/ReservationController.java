@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @AllArgsConstructor
 public class ReservationController {
@@ -42,6 +44,13 @@ public class ReservationController {
     public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
         reservationService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/reservations/cubicles")
+    public ResponseEntity<?> findByCubicle(@RequestParam String roomNumber, @RequestParam int floor){
+        return new ResponseEntity<>(
+                reservationService.findByCubicle(roomNumber, floor), HttpStatus.OK);
+
     }
 
 }

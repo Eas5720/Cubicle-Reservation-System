@@ -57,6 +57,18 @@ public class ReservationService {
         return reservations;
     }
 
+    public List<Reservation> findByCubicle(String roomNumber, int floor){
+        List<Reservation> allReservations = reservationRepository.findAll();
+        List<Reservation> reservations = new ArrayList<>();
+        for (Reservation reservation : allReservations){
+            Cubicle cubicle = reservation.getCubicle();
+            if(cubicle.getFloor() == floor && cubicle.getRoomNumber().equals(roomNumber)){
+                reservations.add(reservation);
+            }
+        }
+        return reservations;
+    }
+
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
