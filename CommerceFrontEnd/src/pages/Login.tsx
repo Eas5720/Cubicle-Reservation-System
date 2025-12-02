@@ -41,7 +41,7 @@ function Login() {
       const response = await axios.post("/api/employee/login", login);
 
       if (response.data.id == null) {
-        //TODO: Make this be part of the thing and not just front end
+        //TODO Elias: Make this be part of the thing and not just front end
         alert("Username or password incorrect");
         return;
       }
