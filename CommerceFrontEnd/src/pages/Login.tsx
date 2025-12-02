@@ -65,12 +65,14 @@ function Login() {
 
   return (
     <div>
-      <TopNav />
-      <h1>Login</h1>
+      <h1>Welcome to the Commerce Bank Hotel Reservation Login!</h1>
+      <p>Enter Your Employee Credientals to Get Started!</p>
+      <TopNav /> 
+      <h2>Login</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="input" placeholder="email@place.com" name="email" onChange={changeValue} />
+          <Form.Control type="input" placeholder="email@commercebank.com" name="email" onChange={changeValue} />
 
         </Form.Group>
 
@@ -81,7 +83,7 @@ function Login() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Submit
+          Confirm
         </Button>
       </Form>
     </div>

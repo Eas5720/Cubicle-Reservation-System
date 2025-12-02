@@ -18,7 +18,9 @@ function EmployeeViewReservations() {
   return (
     <div className='container'>
         <div className='mt-3'>
-          <h3>Your Reservations</h3>
+          <h3>Your Existing Reservations</h3>
+          <p>These are all of the rooms you currently have reserved, as well as their reservation dates.
+            <div> You can cancel a reservation at any time.</div></p>
           <Table striped bordered hover>
             <thead>
               <tr>

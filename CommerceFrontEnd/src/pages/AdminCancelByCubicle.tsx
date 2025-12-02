@@ -19,6 +19,8 @@ function AdminCancelByCubicle() {
     <div className='container'>
         <div className='mt-3'>
           <h3>All Reservations</h3>
+          <h4>WARNING:</h4>
+          <p>The actions you make here affect the reservations of employees. Once an action is made, it CANNOT be undone. Please be mindful.</p>
           <Table striped bordered hover>
             <thead>
               <tr>
