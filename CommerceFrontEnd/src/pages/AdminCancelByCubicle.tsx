@@ -28,53 +28,79 @@ function AdminCancelByCubicle() {
   //later used to display the table
   const [filteredReservations, setFilteredReservations] = useState<Reservation[]>([]);
 
-  //get full list of reservations from back end and store it in setAllReservations
+  //get full list of reservations from back end and store it in setAllReservations on page load
   useEffect(() => {
-    axios.get("/api/reservations")
-      .then(res => setAllReservations(res.data))
-      .catch(err => console.error(err));
+    async function loadReservations() {
+      try {
+        const response = await axios.get("/api/reservations");
+        setAllReservations(response.data);
+    } catch (error) {
+        console.error(error);
+      }
+    }
+  loadReservations();
   }, []);
 
   useEffect(() => {
-    //create the list of filtered cublices and/or floors, excluding empty rows
-    const activeFilters = filters.filter(f => f.floor !== "" || f.cubicle !== "");
-
+    //check if each filter has anything typed into it
+    function filterHasInputCheck(f: Filter) {
+      const floorEntered = f.floor !== "";
+      const cubicleEntered = f.cubicle !== "";
+      return floorEntered || cubicleEntered;
+    }
+    //create the list of filters, excluding the ones that are empty
+    const activeFilters = filters.filter(filterHasInputCheck);
     //if no filters then show whole table
     if (activeFilters.length === 0) {
       setFilteredReservations(allReservations);
       return;
     }
+    //function to check if current filter matches a single reservation, later looped through full list of reservations
+    function reservationMatchesAnyFilter(reservation: Reservation) {
+    //loop through each active filter
+      for (var i = 0; i < activeFilters.length; i++) {
+        var f = activeFilters[i];
+        //check floor match, if left blank returns true to pair with any cubicle on that floor
+        var floorMatches =
+        f.floor === "" || reservation.cubicle.floor.toString() === f.floor;
+        //check cubicle match, if left blank returns true to pair with any floors with that cubicle
+        var cubicleMatches =
+        f.cubicle === "" || reservation.cubicle.roomNumber === f.cubicle;
+        //if floor and or cubicle match (if one was left blank) then it pushes that to filtered array when called later
+        if (floorMatches && cubicleMatches) {
+          return true;
+        }
+      }
+      //if no filter matched
+      return false;
+    }
 
-    //loop through all reservations in the full list
-    const filtered = allReservations.filter(reservation =>
-      //check if the reservation matches any active filters (.some returns true if it matches either floor or cubicle)
-      activeFilters.some(f =>
-        //check f.floor and f.cubicle to see if the filter is empty and ignores it if so
-        //if not, compare filtered floor/cubicle as string to see if it should be displayed
-        (f.floor === "" || reservation.cubicle.floor.toString() === f.floor) &&
-        (f.cubicle === "" || reservation.cubicle.roomNumber === f.cubicle)
-      )
-    );
-
+    var filtered = []; 
+    //loop through allReservations to see which ones match current filters
+    for (var i = 0; i < allReservations.length; i++) {
+      var reservation = allReservations[i];
+      //if a reservation matches push it to the filtered array
+      if (reservationMatchesAnyFilter(reservation)) {
+        filtered.push(reservation);
+      }
+    }
     //update the table to be displayed
     setFilteredReservations(filtered);
   }, [filters, allReservations]);
 
-  //handleInputChange updates the filters when an input field is typed into and creates a new inpt field when the last one is modified
+  //handleInputChange updates the filters when an input field is typed into and creates a new input field when the last one is modified
   const handleInputChange = (index: number, field: "floor" | "cubicle", value: string) => {
     //create a copy of the filters array
     const newFilters = [];
     for (let i = 0; i < filters.length; i++) {
       newFilters.push(filters[i]);
-  }
+    }
     //update the field at the given row/index
     newFilters[index][field] = value;
-
     //if data is added to the last filter input field, automaticaly addes a new line of floor/cubicle inputs
     if (index === filters.length - 1 && (value !== "")) {
       newFilters.push({ floor: "", cubicle: "" });
     }
-
     //update the filters
     setFilters(newFilters);
   };
@@ -108,7 +134,6 @@ const cancelAll = async () => {
   }
 };
 
-
   return (
     <div className="container">
       <h3 className="mt-3">Reservations By Cubicle</h3>
@@ -116,6 +141,7 @@ const cancelAll = async () => {
       {/*Maps over all filters with values tied to react. Typing triggers handleInputChange to update filters*/} 
       {filters.map((filter, index) => (
         <div key={index}>
+          {/*e is an event, being a change in the input fields (typed into), and e.target.value is the what was typed into the input*/}
           <input style={{ marginRight: "10px" }} placeholder="Cubicle" value={filter.cubicle} onChange={(e) => handleInputChange(index, "cubicle", e.target.value)}/>
           <input placeholder="Floor" value={filter.floor} onChange={(e) => handleInputChange(index, "floor", e.target.value)}/>
         </div>
@@ -127,7 +153,7 @@ const cancelAll = async () => {
           <tr>
             <th style={{ display: "none"  }}>ID</th>
             <th>Employee</th>
-            <th>Room Number</th>
+            <th>Cubicle Number</th>
             <th>Floor</th>
             <th>Start Date</th>
             <th>End Date</th>
