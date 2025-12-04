@@ -41,7 +41,7 @@ function CancelConfirm() {
       <Table bordered>
         <thead>
           <tr>
-            <th style={{display: isAdmin ? "": "none"}}>Employee</th>
+            <th style={{display: isAdmin ? "block": "none"}}>Employee</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Cubical Number</th>
@@ -50,7 +50,7 @@ function CancelConfirm() {
         </thead>
         <tbody>
           <tr>
-            <td style={{display: isAdmin ? "": "none"}}>{reservation.employee.firstName} {reservation.employee.lastName}</td>
+            <td style={{display: isAdmin ? "block": "none"}}>{reservation.employee.firstName} {reservation.employee.lastName}</td>
             <td>{reservation.startDate}</td>
             <td>{reservation.endDate}</td>
             <td>{reservation.cubicle.roomNumber}</td>

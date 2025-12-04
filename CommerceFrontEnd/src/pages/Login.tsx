@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 function Login() {
   const { employeeID, isAdmin, handleLogin } = useAuth();
   const navigate = useNavigate();
+  const [loginFailed, setLoginFailed] = useState(false);
   const [login, setLogin] = useState({
     email: '',
     password: ''
@@ -42,7 +43,8 @@ function Login() {
 
       if (response.data.id == null) {
         //TODO Elias: Make this be part of the thing and not just front end
-        alert("Username or password incorrect");
+        //alert("Username or password incorrect");
+        setLoginFailed(true);
         return;
       }
 
@@ -83,6 +85,7 @@ function Login() {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        {loginFailed && <p style={{color:"red"}}>Incorrect username or password!</p>}
       </Form>
     </div>
   );
