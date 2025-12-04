@@ -1,17 +1,14 @@
 import { Button } from "react-bootstrap";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CancelReservationButton({reservationId}: {reservationId: number}) {
-    
+    const navigate = useNavigate();
     const handleCancel = async () => {
-    try {
-      await axios.delete(`/api/reservations/${reservationId}`);
-      alert("Reservation Canceled");
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to cancel reservation");
-    }
+      navigate('../cancelconfirm',{
+        state: {
+          reservationId
+        }
+      });
   };
 
   return (

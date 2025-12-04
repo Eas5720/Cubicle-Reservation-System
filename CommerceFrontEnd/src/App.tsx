@@ -17,6 +17,7 @@ import AdminCancel from './pages/AdminCancel'
 import AdminCancelByCubicle from './pages/AdminCancelByCubicle'
 import AdminCancelByEmployee from './pages/AdminCancelByEmployee'
 import AdminCancelByDate from './pages/AdminCancelByDate'
+import CancelConfirm from './pages/CancelConfirm'
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
 
           <Route path="/admincancel" element={
             <ConfirmLogin adminOnly>
-              <AdminCancel />
+              <AdminCancel /> 
             </ConfirmLogin>
           } />
 
@@ -63,7 +64,7 @@ function App() {
               <AdminCancelByCubicle />
             </ConfirmLogin>
           } />
-
+          
           <Route path="/admincancelbyemployee" element={
             <ConfirmLogin adminOnly>
               <AdminCancelByEmployee />
@@ -75,7 +76,12 @@ function App() {
               <AdminCancelByDate />
             </ConfirmLogin>
           } />
-
+          <Route path="/cancelconfirm" element={
+            <ConfirmLogin>
+              <CancelConfirm />
+            </ConfirmLogin>
+            } 
+            />
           <Route path="/cubiclelist" element={<CubicleList />} />
           <Route path="/cubiclecreate" element={<CubicleCreate />} />
           <Route path="/employeelist" element={<EmployeeList />} />

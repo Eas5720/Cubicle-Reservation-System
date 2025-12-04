@@ -9,10 +9,12 @@ function getEmployee(){
         lastName: ''
     });
     useEffect(() => {
-        axios
-        .get(`/api/employees/${employeeID}`)
-        .then((res) => setEmployee(res.data))
-        .catch((err) => console.log(err));
+        if (employeeID){
+            axios
+            .get(`/api/employees/${employeeID}`)
+            .then((res) => setEmployee(res.data))
+            .catch((err) => console.log(err));
+        }
     }, [employeeID]);
     return employee;
 }export default getEmployee

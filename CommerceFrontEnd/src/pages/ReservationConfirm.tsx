@@ -33,7 +33,6 @@ function ReservationConfirm() {
       console.log('Reservation saved:', response.data);
       //alert('Reservation saved successfully!');
       navigate('/employeeviewreservations');
-      //TODO: Redirect to home reservation view
     } catch (error) {
       console.error('Error saving reservation:', error);
       alert('Failed to save reservation.');
