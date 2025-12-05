@@ -37,7 +37,8 @@ function CancelConfirm() {
   return (
     
     <div>
-      <h1>Cancel Reservation?</h1>
+      <h1>Are You Sure You Want to Cancel Your Reservation?</h1>
+      <p>Please note that this action cannot be undone. However, you can reserve the same cubicle again if it is still available.</p>
       <Table bordered>
         <thead>
           <tr>

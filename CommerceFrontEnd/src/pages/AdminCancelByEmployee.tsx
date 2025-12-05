@@ -136,7 +136,7 @@ const cancelAll = async () => {
 
   return (
     <div className="container">
-      <h3 className="mt-3">Reservations By Cubicle</h3>
+      <h3 className="mt-3">Reservations Sorted By Employee ID</h3>
 
       {/*Maps over all filters with values tied to react. Typing triggers handleInputChange to update filters*/} 
       {filters.map((filter, index) => (

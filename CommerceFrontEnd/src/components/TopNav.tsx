@@ -38,7 +38,7 @@ function TopNav() {
           style={{ height: '80px', width: 'auto' }}
         />
       </div>
-        <Navbar.Brand href="/home">Commerce Bank Hotel Reservaion</Navbar.Brand>
+        <Navbar.Brand href="/home">Commerce Bank Hotel Reservation</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

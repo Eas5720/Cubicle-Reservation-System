@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+
 function ReservationCreate() {  
   const {employeeID} = useAuth();
 
@@ -73,7 +74,9 @@ function ReservationCreate() {
 
   return (
     <div>
-      <Form className="mb-3 d-flex gap-2 align-items-end">
+      <h4>Create Reservations</h4>
+      <p>Here you can select the dates that you wish to reserve a cubicle! A list of all available cubicles will drop down when both the start and end date are entered.</p>
+      <Form className="mb-3 d-flex gap-2 align-items-end justify-content-center"> 
         <div>
           <Form.Label>Start Date</Form.Label>
           <Form.Control
