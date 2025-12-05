@@ -28,8 +28,8 @@ const FixedLogoComponent = () => {
 
 //define filter object
 interface Filter {
-  floor: string;
-  cubicle: string;
+  firstName: string;
+  lastName: string;
 }
 
 //define reservation object
@@ -44,7 +44,7 @@ interface Reservation {
 function AdminCancelByCubicle() {
   const navigate = useNavigate();
   //create filters component, an array of objects holding floor and cubicle withn each object
-  const [filters, setFilters] = useState<Filter[]>([{ floor: "", cubicle: "" }]);
+  const [filters, setFilters] = useState<Filter[]>([{ firstName: "", lastName: "" }]);
   //initialize all reservations to hold the initiall full list of reservations
   const [allReservations, setAllReservations] = useState<Reservation[]>([]);
   //initialize filtered reservations to hold the reservations that match the admins given list of floors and or cublicles
@@ -67,9 +67,9 @@ function AdminCancelByCubicle() {
   useEffect(() => {
     //check if each filter has anything typed into it
     function filterHasInputCheck(f: Filter) {
-      const floorEntered = f.floor !== "";
-      const cubicleEntered = f.cubicle !== "";
-      return floorEntered || cubicleEntered;
+      const fNameEntered = f.firstName !== "";
+      const lNameEntered = f.lastName !== "";
+      return fNameEntered || lNameEntered;
     }
     //create the list of filters, excluding the ones that are empty
     const activeFilters = filters.filter(filterHasInputCheck);
@@ -84,13 +84,13 @@ function AdminCancelByCubicle() {
       for (var i = 0; i < activeFilters.length; i++) {
         var f = activeFilters[i];
         //check floor match, if left blank returns true to pair with any cubicle on that floor
-        var floorMatches =
-        f.floor === "" || reservation.cubicle.floor.toString() === f.floor;
+        var firstMatches =
+        f.firstName === "" || reservation.employee.firstName.toString() === f.firstName;
         //check cubicle match, if left blank returns true to pair with any floors with that cubicle
-        var cubicleMatches =
-        f.cubicle === "" || reservation.cubicle.roomNumber === f.cubicle;
+        var lastMatches =
+        f.lastName === "" || reservation.employee.lastName.toString() === f.lastName;
         //if floor and or cubicle match (if one was left blank) then it pushes that to filtered array when called later
-        if (floorMatches && cubicleMatches) {
+        if (firstMatches && lastMatches) {
           return true;
         }
       }
@@ -112,7 +112,7 @@ function AdminCancelByCubicle() {
   }, [filters, allReservations]);
 
   //handleInputChange updates the filters when an input field is typed into and creates a new input field when the last one is modified
-  const handleInputChange = (index: number, field: "floor" | "cubicle", value: string) => {
+  const handleInputChange = (index: number, field: "firstName" | "lastName", value: string) => {
     //create a copy of the filters array
     const newFilters = [];
     for (let i = 0; i < filters.length; i++) {
@@ -122,7 +122,7 @@ function AdminCancelByCubicle() {
     newFilters[index][field] = value;
     //if data is added to the last filter input field, automaticaly addes a new line of floor/cubicle inputs
     if (index === filters.length - 1 && (value !== "")) {
-      newFilters.push({ floor: "", cubicle: "" });
+      newFilters.push({ firstName: "", lastName: "" });
     }
     //update the filters
     setFilters(newFilters);
@@ -145,8 +145,8 @@ const cancelAll = async () => {
       {filters.map((filter, index) => (
         <div key={index}>
           {/*e is an event, being a change in the input fields (typed into), and e.target.value is the what was typed into the input*/}
-          <input style={{ marginRight: "10px" }} placeholder="Cubicle" value={filter.cubicle} onChange={(e) => handleInputChange(index, "cubicle", e.target.value)}/>
-          <input placeholder="Floor" value={filter.floor} onChange={(e) => handleInputChange(index, "floor", e.target.value)}/>
+          <input style={{ marginRight: "10px" }} placeholder="First Name" value={filter.firstName} onChange={(e) => handleInputChange(index, "firstName", e.target.value)}/>
+          <input placeholder="Last Name" value={filter.lastName} onChange={(e) => handleInputChange(index, "lastName", e.target.value)}/>
         </div>
       ))}
       <Button style={{ margin: "10px" }} variant="danger" onClick={cancelAll}>Cancel All</Button>
