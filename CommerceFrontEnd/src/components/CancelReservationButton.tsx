@@ -12,7 +12,7 @@ function CancelReservationButton({reservationId}: {reservationId: number}) {
   };
 
   return (
-    <Button variant="danger" onClick={handleCancel}>Cancel</Button>
+    <Button style={{ margin: "5px" }} variant="danger" onClick={handleCancel}>Cancel</Button>
   );
 }
 

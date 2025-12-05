@@ -3,25 +3,27 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 //define filter object
 interface Filter {
-  name: string;
-  email: string;
+  floor: string;
+  cubicle: string;
 }
 
 //define reservation object
 interface Reservation {
   id: number;
-  employee: { firstName: string; lastName: string; email: string};
+  employee: { firstName: string; lastName: string };
   cubicle: { floor: number; roomNumber: string };
   startDate: string;
   endDate: string;
 }
 
-function AdminCancelByEmployee() {
+function AdminCancelByCubicle() {
+  const navigate = useNavigate();
   //create filters component, an array of objects holding floor and cubicle withn each object
-  const [filters, setFilters] = useState<Filter[]>([{ name: "", email: "" }]);
+  const [filters, setFilters] = useState<Filter[]>([{ floor: "", cubicle: "" }]);
   //initialize all reservations to hold the initiall full list of reservations
   const [allReservations, setAllReservations] = useState<Reservation[]>([]);
   //initialize filtered reservations to hold the reservations that match the admins given list of floors and or cublicles
@@ -44,9 +46,9 @@ function AdminCancelByEmployee() {
   useEffect(() => {
     //check if each filter has anything typed into it
     function filterHasInputCheck(f: Filter) {
-      const nameEntered = f.name !== "";
-      const emailEntered = f.email !== "";
-      return nameEntered || emailEntered;
+      const floorEntered = f.floor !== "";
+      const cubicleEntered = f.cubicle !== "";
+      return floorEntered || cubicleEntered;
     }
     //create the list of filters, excluding the ones that are empty
     const activeFilters = filters.filter(filterHasInputCheck);
@@ -60,14 +62,14 @@ function AdminCancelByEmployee() {
     //loop through each active filter
       for (var i = 0; i < activeFilters.length; i++) {
         var f = activeFilters[i];
-        //check name match, if left blank returns true to pair with any email with that name
-        var nameMatches =
-        f.name === "" || reservation.employee.firstName + " " + reservation.employee.lastName === f.name;
-        //check email match, if left blank returns true to pair with any name with that email 
-        var emailMatches =
-        f.email === "" || reservation.employee.email === f.email;
+        //check floor match, if left blank returns true to pair with any cubicle on that floor
+        var floorMatches =
+        f.floor === "" || reservation.cubicle.floor.toString() === f.floor;
+        //check cubicle match, if left blank returns true to pair with any floors with that cubicle
+        var cubicleMatches =
+        f.cubicle === "" || reservation.cubicle.roomNumber === f.cubicle;
         //if floor and or cubicle match (if one was left blank) then it pushes that to filtered array when called later
-        if (nameMatches && emailMatches) {
+        if (floorMatches && cubicleMatches) {
           return true;
         }
       }
@@ -89,7 +91,7 @@ function AdminCancelByEmployee() {
   }, [filters, allReservations]);
 
   //handleInputChange updates the filters when an input field is typed into and creates a new input field when the last one is modified
-  const handleInputChange = (index: number, field: "name" | "email", value: string) => {
+  const handleInputChange = (index: number, field: "floor" | "cubicle", value: string) => {
     //create a copy of the filters array
     const newFilters = [];
     for (let i = 0; i < filters.length; i++) {
@@ -99,7 +101,7 @@ function AdminCancelByEmployee() {
     newFilters[index][field] = value;
     //if data is added to the last filter input field, automaticaly addes a new line of floor/cubicle inputs
     if (index === filters.length - 1 && (value !== "")) {
-      newFilters.push({ name: "", email: "" });
+      newFilters.push({ floor: "", cubicle: "" });
     }
     //update the filters
     setFilters(newFilters);
@@ -107,32 +109,11 @@ function AdminCancelByEmployee() {
 
 //cancel all button
 const cancelAll = async () => {
-  //declare first and last id of the filtered reservation list
-  const firstId = filteredReservations[0].id;
-  const lastId = filteredReservations[filteredReservations.length - 1].id;
-  try {
-    //loop through indexes between the first and last id
-    for (let id = firstId; id <= lastId; id++) {
-      let reservationExists = false;
-      //loop through the filteredReservations objects to see if they any match the current possible id
-      for (let i = 0; i < filteredReservations.length; i++) {
-        if (filteredReservations[i].id === id) {
-          reservationExists = true;
-          break;
-        }
-      }
-      //if one is found that matches, delete that entry
-      if (reservationExists) {
-        await axios.delete(`/api/reservations/${id}`);
-      }
-    }
-    alert("Reservations canceled");
-    window.location.reload();
-  } catch (err) {
-    console.error(err);
-    alert("Failed to cancel reservation");
-  }
+  navigate("/admincancelreservationbygroup", {
+  state: { filteredReservations }
+  });
 };
+
 
   return (
     <div className="container">
@@ -142,8 +123,8 @@ const cancelAll = async () => {
       {filters.map((filter, index) => (
         <div key={index}>
           {/*e is an event, being a change in the input fields (typed into), and e.target.value is the what was typed into the input*/}
-          <input style={{ marginRight: "10px" }} placeholder="Name" value={filter.name} onChange={(e) => handleInputChange(index, "name", e.target.value)}/>
-          <input placeholder="Email" value={filter.email} onChange={(e) => handleInputChange(index, "email", e.target.value)}/>
+          <input style={{ marginRight: "10px" }} placeholder="Cubicle" value={filter.cubicle} onChange={(e) => handleInputChange(index, "cubicle", e.target.value)}/>
+          <input placeholder="Floor" value={filter.floor} onChange={(e) => handleInputChange(index, "floor", e.target.value)}/>
         </div>
       ))}
       <Button style={{ margin: "10px" }} variant="danger" onClick={cancelAll}>Cancel All</Button>
@@ -153,7 +134,6 @@ const cancelAll = async () => {
           <tr>
             <th style={{ display: "none"  }}>ID</th>
             <th>Employee</th>
-            <th>Email</th>
             <th>Cubicle Number</th>
             <th>Floor</th>
             <th>Start Date</th>
@@ -167,7 +147,6 @@ const cancelAll = async () => {
             <tr key={index}>
               <td style={{ display: "none" }}>{reservation.id}</td>
               <td>{reservation.employee.firstName} {reservation.employee.lastName}</td>
-              <td>{reservation.employee.email}</td>
               <td>{reservation.cubicle.roomNumber}</td>
               <td>{reservation.cubicle.floor}</td>
               <td>{reservation.startDate}</td>
@@ -181,4 +160,4 @@ const cancelAll = async () => {
   );
 }
 
-export default AdminCancelByEmployee;
+export default AdminCancelByCubicle;

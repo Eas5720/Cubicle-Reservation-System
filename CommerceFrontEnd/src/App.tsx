@@ -18,6 +18,7 @@ import AdminCancelByCubicle from './pages/AdminCancelByCubicle'
 import AdminCancelByEmployee from './pages/AdminCancelByEmployee'
 import AdminCancelByDate from './pages/AdminCancelByDate'
 import CancelConfirm from './pages/CancelConfirm'
+import AdminCancelReservationByGroup from './pages/AdminCancelReservationByGroup'
 
 function App() {
   return (
@@ -79,6 +80,12 @@ function App() {
           <Route path="/cancelconfirm" element={
             <ConfirmLogin>
               <CancelConfirm />
+            </ConfirmLogin>
+            } 
+            />
+          <Route path="/admincancelreservationbygroup" element={
+            <ConfirmLogin adminOnly>
+              <AdminCancelReservationByGroup />
             </ConfirmLogin>
             } 
             />
