@@ -4,7 +4,10 @@ import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { useAuth } from "../context/AuthContext";
 
+//TODO: Make a back button, make a reservation cancel confirmation
+
 function EmployeeViewReservations() {
+
   const {employeeID} = useAuth();
 
   const [reservation, setReservation] = useState<any[]>([])

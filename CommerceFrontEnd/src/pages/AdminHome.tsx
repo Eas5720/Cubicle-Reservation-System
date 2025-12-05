@@ -39,7 +39,7 @@ function AdminHome() {
   }
 
   const handleClickAdminByUser = () =>{
-    navigate('/admincancelbyuser');
+    navigate('/admincancelbyemployee');
   }
 
   return (
@@ -57,8 +57,7 @@ function AdminHome() {
       <Button onClick={handleClickAdminByDate}>View Reservations By Dates Reserved</Button>
       <br />
       <br />
-      <Button onClick={handleClickAdminByUser}>View Reservations By Username</Button>
-       <FixedLogoComponent /> 
+      <Button onClick={handleClickAdminByUser}>View Reservations By Employee</Button>
     </div>
   );
 }

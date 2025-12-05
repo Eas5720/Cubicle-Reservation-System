@@ -25,7 +25,8 @@ function AdminCancel() {
             <thead>
               <tr>
                 <th style={{display: "none"}}>ID</th>
-                <th>Room Number</th>
+                <th>Employee</th>
+                <th>Cubicle Number</th>
                 <th>Floor</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -37,6 +38,7 @@ function AdminCancel() {
                 reservation.map((reservation, index) =>{
                   return <tr key={index}>
                     <td style={{display: "none"}}>{reservation.id}</td>
+                    <td>{reservation.employee.firstName} {reservation.employee.lastName}</td>
                     <td>{reservation.cubicle.roomNumber}</td>
                     <td>{reservation.cubicle.floor}</td>
                     <td>{reservation.startDate}</td>

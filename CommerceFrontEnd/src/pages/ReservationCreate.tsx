@@ -10,6 +10,10 @@ function ReservationCreate() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [minStartDate, setMinStartDate] = useState(""); //current date 
+  const [maxStartDate, setMaxStartDate] = useState(""); //must be 3 months in the future
+  const [minEndDate, setMinEndDate] = useState(""); //must be after start date
+  const [maxEndDate,setMaxEndDate] = useState(""); //must be 6 months in the future
   const [cubical, setCubical] = useState<any[]>([])
   const [reservation] = useState({
     employeeId: employeeID,
@@ -17,8 +21,32 @@ function ReservationCreate() {
     startDate: startDate,
     endDate: endDate
   }); //creates variables to store
+
+  const setDateLimits = ()=> {
+    //Initialize all min/max values.
+    setMinStartDate(new Date().toISOString().split("T")[0]);        // current day
+    const tempMaxStartDate = new Date();
+    tempMaxStartDate.setMonth(tempMaxStartDate.getMonth()+3);
+    setMaxStartDate(tempMaxStartDate.toISOString().split("T")[0]);  // 3 months in the future
+
+    if(startDate){
+      setMinEndDate(startDate);                                     //End date cannot be before start
+    }
+    else{
+      setMinEndDate(new Date().toISOString().split("T")[0]);
+    }
+    const tempMaxEndDate = new Date();
+    tempMaxEndDate.setMonth(tempMaxEndDate.getMonth()+6);
+    setMaxEndDate(tempMaxEndDate.toISOString().split("T")[0]);      // 6 months in the future
+  }
+
   useEffect(() => {
+    setDateLimits();
+
     if (startDate && endDate) {
+      if(startDate > endDate){
+        setEndDate(startDate);
+      }
       axios
         .get("/api/cubicles/available", {
           params: { startDate, endDate },
@@ -50,6 +78,8 @@ function ReservationCreate() {
           <Form.Label>Start Date</Form.Label>
           <Form.Control
             type="date"
+            min={minStartDate}
+            max={maxStartDate}
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
           />
@@ -59,6 +89,8 @@ function ReservationCreate() {
           <Form.Label>End Date</Form.Label>
           <Form.Control
             type="date"
+            min={minEndDate}
+            max={maxEndDate}
             value={endDate}
             onChange={e => setEndDate(e.target.value)}
           />

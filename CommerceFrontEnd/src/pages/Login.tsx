@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 function Login() {
   const { employeeID, isAdmin, handleLogin } = useAuth();
   const navigate = useNavigate();
+  const [loginFailed, setLoginFailed] = useState(false);
   const [login, setLogin] = useState({
     email: '',
     password: ''
@@ -41,8 +42,9 @@ function Login() {
       const response = await axios.post("/api/employee/login", login);
 
       if (response.data.id == null) {
-        //TODO: Make this be part of the thing and not just front end
-        alert("Username or password incorrect");
+        //TODO Elias: Make this be part of the thing and not just front end
+        //alert("Username or password incorrect");
+        setLoginFailed(true);
         return;
       }
 
@@ -85,6 +87,7 @@ function Login() {
         <Button variant="primary" type="submit">
           Confirm
         </Button>
+        {loginFailed && <p style={{color:"red"}}>Incorrect username or password!</p>}
       </Form>
     </div>
   );
