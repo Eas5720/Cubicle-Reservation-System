@@ -4,6 +4,28 @@ import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/greycommercelogo.png";
+
+const FixedLogoComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed', // Keeps it relative to the browser window
+    bottom: '0',       // Anchors it to the bottom of the screen
+    right: '0',        // Anchors it to the right of the screen
+    margin: '20px',    // Adds spacing around the image
+    zIndex: 1000,      // Ensures the logo appears on top of other content
+    width: '200px',    // Controls the size of the logo
+    height: 'auto',    // Maintains the image's aspect ratio
+  };
+
+  return (
+    <img
+      src={logo}
+      alt="Commerce Bank Logo"
+      style={imageStyle}
+    />
+  );
+};
+
 
 //define filter object
 interface Filter {
@@ -134,7 +156,7 @@ const cancelAll = async () => {
 
   return (
     <div className="container">
-      <h3 className="mt-3">Reservations By Date</h3>
+      <h3 className="mt-3">Reservations Sorted By Date Reserved</h3>
 
       {/*Maps over all filters with values tied to react. Typing triggers handleInputChange to update filters*/} 
       {filters.map((filter, index) => (
@@ -173,6 +195,7 @@ const cancelAll = async () => {
           ))}
         </tbody>
       </Table>
+      <FixedLogoComponent />
     </div>
   );
 }

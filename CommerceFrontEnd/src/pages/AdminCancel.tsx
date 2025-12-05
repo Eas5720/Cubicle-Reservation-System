@@ -3,6 +3,27 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/greycommercelogo.png";
+
+const FixedLogoComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed', // Keeps it relative to the browser window
+    bottom: '0',       // Anchors it to the bottom of the screen
+    right: '0',        // Anchors it to the right of the screen
+    margin: '20px',    // Adds spacing around the image
+    zIndex: 1000,      // Ensures the logo appears on top of other content
+    width: '200px',    // Controls the size of the logo
+    height: 'auto',    // Maintains the image's aspect ratio
+  };
+
+  return (
+    <img
+      src={logo}
+      alt="Commerce Bank Logo"
+      style={imageStyle}
+    />
+  );
+};
 
 function AdminCancel() {
   const {employeeID} = useAuth();
@@ -18,7 +39,9 @@ function AdminCancel() {
   return (
     <div className='container'>
         <div className='mt-3'>
-          <h3>All Reservations</h3>
+          <h3>All Reservations of Employees</h3>
+          <h4>WARNING:</h4>
+          <p>The actions you make here affect the reservations of employees. Once an action is made, it CANNOT be undone. Please be mindful.</p>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -47,7 +70,7 @@ function AdminCancel() {
               }
             </tbody>
           </Table>
-          
+          <FixedLogoComponent />
         </div>
     </div>
   );

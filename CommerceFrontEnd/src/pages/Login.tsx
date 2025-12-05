@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/greycommercelogo.png";
 
 function Login() {
   const { employeeID, isAdmin, handleLogin } = useAuth();
@@ -67,12 +68,14 @@ function Login() {
 
   return (
     <div>
-      <TopNav />
-      <h1>Login</h1>
+      <h1>Welcome to the Commerce Bank Hotel Reservation Login!</h1>
+      <p>Enter Your Employee Credientals to Get Started!</p>
+      <TopNav /> 
+      <h2>Login</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="input" placeholder="email@place.com" name="email" onChange={changeValue} />
+          <Form.Control type="input" placeholder="email@commercebank.com" name="email" onChange={changeValue} />
 
         </Form.Group>
 
@@ -83,13 +86,34 @@ function Login() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Submit
+          Confirm
         </Button>
         {loginFailed && <p style={{color:"red"}}>Incorrect username or password!</p>}
       </Form>
+      <ImageComponent /> 
     </div>
   );
 }
+const ImageComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed',
+    bottom: '0',
+    right: '0',
+    //margin: '20px', // Optional: space from the edge
+    //zIndex: 1000, // Optional: ensure it's above other content
+    width: '200px', // Optional: set image dimensions
+    height: 'auto',
+  };
+
+  return (
+    <img
+      src={logo}
+      alt="Description of image"
+      style={imageStyle}
+      
+    />
+  );
+};
 
 export default Login;
 

@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from '../context/AuthContext';
 import getEmployee from '../hooks/getEmployee';
-
+import logo from "../assets/commercebanklogo.png";
 function TopNav() {
   const { employeeID, handleLogout } = useAuth();
   const employee = getEmployee();
@@ -30,11 +30,19 @@ function TopNav() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
-        <Navbar.Brand href="/home">Commerce Bank</Navbar.Brand>
+         <div className="navbar-logo">
+        <img 
+          src={logo} 
+          alt="commercebanklogo.png" 
+          className="logo-img"
+          style={{ height: '80px', width: 'auto' }}
+        />
+      </div>
+        <Navbar.Brand href="/home">Commerce Bank Hotel Reservation</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/home">Home Page</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         

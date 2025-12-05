@@ -5,6 +5,28 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate} from "react-router-dom";
 import ConfirmCancelReservationButton from "../components/ConfirmCancelReservationButton";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/greycommercelogo.png";
+
+const FixedLogoComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed', // Keeps it relative to the browser window
+    bottom: '0',       // Anchors it to the bottom of the screen
+    right: '0',        // Anchors it to the right of the screen
+    margin: '20px',    // Adds spacing around the image
+    zIndex: 1000,      // Ensures the logo appears on top of other content
+    width: '200px',    // Controls the size of the logo
+    height: 'auto',    // Maintains the image's aspect ratio
+  };
+
+
+ return (
+    <img
+      src={logo}
+      alt="Commerce Bank Logo"
+      style={imageStyle}
+    />
+  );
+};
 
 function CancelConfirm() {  
   const {isAdmin} = useAuth();
@@ -37,7 +59,8 @@ function CancelConfirm() {
   return (
     
     <div>
-      <h1>Cancel Reservation?</h1>
+      <h1>Are You Sure You Want to Cancel Your Reservation?</h1>
+      <p>Please note that this action cannot be undone. However, you can reserve the same cubicle again if it is still available.</p>
       <Table bordered>
         <thead>
           <tr>
@@ -60,82 +83,90 @@ function CancelConfirm() {
       </Table>
       <ConfirmCancelReservationButton reservationId={reservationId}></ConfirmCancelReservationButton>
       <Button className='cancelButton' onClick={handleCancel}>Go Back</Button>
+      <FixedLogoComponent />
     </div>
   );
 }
 export default CancelConfirm;
-/*
-import axios from "axios";
+
+
+/*import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import { Button, Table } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
+import { useLocation, useNavigate} from "react-router-dom";
+import ConfirmCancelReservationButton from "../components/ConfirmCancelReservationButton";
+import { useAuth } from "../context/AuthContext";
 
-function ReservationCreate() {  
+interface Reservation {
+  id: number;
+  employee: { firstName: string; lastName: string };
+  cubicle: { floor: number; roomNumber: string };
+  startDate: string;
+  endDate: string;
+}
 
-  const [employeeIDString] = useState(
-    localStorage.getItem("employeeID")
-  );
-  let employeeID = 0;
-  if (employeeIDString!==null){
-    employeeID = parseInt(employeeIDString);
-  }
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+function CancelConfirm() {  
+  const {isAdmin} = useAuth();
+  const location = useLocation();
+  const { reservationId } = location.state;
+  const [allReservations, setAllReservations] = useState<Reservation[]>([]);
 
   const [reservation, setReservation] = useState({
-    employeeId: employeeID,
-    cubicleId: 1,
-    startDate: startDate,
-    endDate: endDate
-  }); //creates variables to store
-
-  const changeValue=(e)=>{
-    console.log(e);
-    setReservation({
-     ...reservation, [e.target.name]:e.target.value  
-    });
-    //localStorage.setItem("startDate", response.data.id);
-    //localStorage.setItem("endDate", response.data.admin);
-    console.log(e.target.name + " name "  );
-    console.log(e.target.value + " value " );
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();  
-    try {
-      reservation.startDate = startDate;
-      reservation.endDate = endDate;
-      const response = await axios.post('/api/reservation', reservation);
-      console.log('Reservation saved:', response.data);
-      alert('Reservation saved successfully!');
-    } catch (error) {
-      console.error('Error saving reservation:', error);
-      alert('Failed to save reservation.');
-    }
+    employee: {
+      firstName: '',
+      lastName: ''
+    },
+    cubicle: {
+      roomNumber: '',
+      floor: ''
+    },
+    startDate: "",
+    endDate: ""
+  });
+  const navigate = useNavigate();
+  const handleCancel = async () => {
+    navigate(-1);
   };
+
+  
+  useEffect(() => {
+    for (var i = 0; i < reservationId.length; i++){
+      axios.get(`/api/reservations/${reservationId[i]}`)
+        .then(res => allReservations.push(res.data))
+        .catch(err => console.error(err));
+    }
+  }, [reservationId]);
 
   return (
     
     <div>
-      <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Start Date</Form.Label>
-              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>End Date</Form.Label>
-              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-              Submit
-          </Button>
-      </Form>
+      <h1>Cancel Reservation?</h1>
+      <Table bordered>
+        <thead>
+          <tr>
+            <th style={{display: isAdmin ? "block": "none"}}>Employee</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Cubical Number</th>
+            <th>Cubical Floor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allReservations.map((reservation, index) => (
+            <tr key={index}>
+              <td style={{display: isAdmin ? "block": "none"}}>{reservation.employee.firstName} {reservation.employee.lastName}</td>
+              <td>{reservation.startDate}</td>
+              <td>{reservation.endDate}</td>
+              <td>{reservation.cubicle.roomNumber}</td>
+              <td>{reservation.cubicle.floor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <ConfirmCancelReservationButton reservationId={reservationId}></ConfirmCancelReservationButton>
+      <Button className='cancelButton' onClick={handleCancel}>Go Back</Button>
     </div>
   );
 }
-export default ReservationCreate;
-*/
+export default CancelConfirm;*/

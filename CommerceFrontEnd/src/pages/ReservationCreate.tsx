@@ -4,6 +4,30 @@ import { Button, Form, Table } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/greycommercelogo.png";
+
+
+const FixedLogoComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed', // Keeps it relative to the browser window
+    bottom: '0',       // Anchors it to the bottom of the screen
+    right: '0',        // Anchors it to the right of the screen
+    margin: '20px',    // Adds spacing around the image
+    zIndex: 1000,      // Ensures the logo appears on top of other content
+    width: '200px',    // Controls the size of the logo
+    height: 'auto',    // Maintains the image's aspect ratio
+  };
+
+
+ return (
+    <img
+      src={logo}
+      alt="Commerce Bank Logo"
+      style={imageStyle}
+    />
+  );
+};
+
 
 function ReservationCreate() {  
   const {employeeID} = useAuth();
@@ -73,7 +97,9 @@ function ReservationCreate() {
 
   return (
     <div>
-      <Form className="mb-3 d-flex gap-2 align-items-end">
+      <h4>Create Reservations</h4>
+      <p>Here you can select the dates that you wish to reserve a cubicle! A list of all available cubicles will drop down when both the start and end date are entered.</p>
+      <Form className="mb-3 d-flex gap-2 align-items-end justify-content-center"> 
         <div>
           <Form.Label>Start Date</Form.Label>
           <Form.Control
@@ -114,6 +140,7 @@ function ReservationCreate() {
           ))}
         </tbody>
       </Table>
+      <FixedLogoComponent />
     </div>
   );
 }
