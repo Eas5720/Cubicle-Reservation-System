@@ -41,7 +41,7 @@ interface Reservation {
   endDate: string;
 }
 
-function AdminCancelByCubicle() {
+function AdminCancelByEmployee() {
   const navigate = useNavigate();
   //create filters component, an array of objects holding floor and cubicle withn each object
   const [filters, setFilters] = useState<Filter[]>([{ firstName: "", lastName: "" }]);
@@ -183,4 +183,4 @@ const cancelAll = async () => {
   );
 }
 
-export default AdminCancelByCubicle;
+export default AdminCancelByEmployee;
