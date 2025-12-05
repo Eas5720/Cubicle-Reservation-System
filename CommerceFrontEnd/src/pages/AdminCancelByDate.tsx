@@ -3,6 +3,28 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { Button } from "react-bootstrap";
+import logo from "../assets/greycommercelogo.png";
+
+const FixedLogoComponent = () => {
+  const imageStyle: React.CSSProperties = {
+    position: 'fixed', // Keeps it relative to the browser window
+    bottom: '0',       // Anchors it to the bottom of the screen
+    right: '0',        // Anchors it to the right of the screen
+    margin: '20px',    // Adds spacing around the image
+    zIndex: 1000,      // Ensures the logo appears on top of other content
+    width: '200px',    // Controls the size of the logo
+    height: 'auto',    // Maintains the image's aspect ratio
+  };
+
+  return (
+    <img
+      src={logo}
+      alt="Commerce Bank Logo"
+      style={imageStyle}
+    />
+  );
+};
+
 
 //define filter object
 interface Filter {
@@ -192,6 +214,7 @@ const cancelAll = async () => {
           ))}
         </tbody>
       </Table>
+      <FixedLogoComponent />
     </div>
   );
 }

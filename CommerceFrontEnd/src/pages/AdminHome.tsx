@@ -58,6 +58,7 @@ function AdminHome() {
       <br />
       <br />
       <Button onClick={handleClickAdminByUser}>View Reservations By Employee</Button>
+      <FixedLogoComponent />
     </div>
   );
 }
