@@ -29,7 +29,7 @@ function AdminCancelReservationByGroup() {
 
   return (  
     <div>
-      <h1>Cancel Reservation?</h1>
+      <h1>Cancel The Following Reservations?</h1>
         <Table striped bordered hover className="mt-3">
         <thead>
           <tr>

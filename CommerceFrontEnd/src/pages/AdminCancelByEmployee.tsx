@@ -139,7 +139,8 @@ const cancelAll = async () => {
   return (
     <div className="container">
       <h3 className="mt-3">Reservations Sorted By Employee ID</h3>
-
+      <h4>WARNING:</h4>
+      <p>The actions you make here affect the reservations of employees. Once an action is made, it CANNOT be undone. Please be mindful.</p>
       {/*Maps over all filters with values tied to react. Typing triggers handleInputChange to update filters*/} 
       {filters.map((filter, index) => (
         <div key={index}>
