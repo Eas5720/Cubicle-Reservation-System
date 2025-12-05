@@ -110,8 +110,10 @@ const cancelAll = async () => {
   //declare first and last id of the filtered reservation list
   const firstId = filteredReservations[0].id;
   const lastId = filteredReservations[filteredReservations.length - 1].id;
+  const ids = [];
   try {
     //loop through indexes between the first and last id
+    
     for (let id = firstId; id <= lastId; id++) {
       let reservationExists = false;
       //loop through the filteredReservations objects to see if they any match the current possible id
@@ -123,7 +125,9 @@ const cancelAll = async () => {
       }
       //if one is found that matches, delete that entry
       if (reservationExists) {
-        await axios.delete(`/api/reservations/${id}`);
+        //await axios.delete(`/api/reservations/${id}`);
+        //store id, then all to the cancel confirm
+        ids.push(id);
       }
     }
     alert("Reservations canceled");
