@@ -39,9 +39,9 @@ public class CubicleService {
         for (Reservation reservation : allReservations){
             LocalDate rStartDate = reservation.getStartDate();
             LocalDate rEndDate = reservation.getEndDate();
-            if((rStartDate.isBefore(startDate)) && (rEndDate.isAfter(startDate))
-            || (rStartDate.isBefore(endDate)) && (rEndDate.isAfter(endDate))
-            || (rStartDate.isAfter(startDate) && rEndDate.isBefore(endDate))){
+            if((rStartDate.isBefore(startDate) || rStartDate.equals(startDate)) && (rEndDate.isAfter(startDate)||rEndDate.equals(startDate))
+            || (rStartDate.isBefore(endDate) || rStartDate.equals(endDate)) && (rEndDate.isAfter(endDate) || rEndDate.equals(endDate))
+            || (rStartDate.isAfter(startDate) || rStartDate.equals(startDate)) && (rEndDate.isBefore(endDate) || rEndDate.equals(endDate))){
                 availableCubicles.remove(reservation.getCubicle());
             }
         }
