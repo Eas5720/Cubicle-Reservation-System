@@ -61,7 +61,7 @@ function ReservationConfirm() {
           </tr>
         </tbody>
       </Table>
-      <Button onClick={handleReservationCreate}>Confirm</Button>
+      <Button style={{ marginRight: "5px" }} onClick={handleReservationCreate}>Confirm</Button>
       <Button className='cancelButton' onClick={handleCancel}>Cancel</Button>
     </div>
   );

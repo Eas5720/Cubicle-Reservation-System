@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import CancelReservationButton from "../components/CancelReservationButton";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/greycommercelogo.png";
 
 
@@ -42,6 +43,7 @@ interface Reservation {
 }
 
 function AdminCancelByCubicle() {
+  const navigate = useNavigate();
   //create filters component, an array of objects holding floor and cubicle withn each object
   const [filters, setFilters] = useState<Filter[]>([{ floor: "", cubicle: "" }]);
   //initialize all reservations to hold the initiall full list of reservations
@@ -129,31 +131,9 @@ function AdminCancelByCubicle() {
 
 //cancel all button
 const cancelAll = async () => {
-  //declare first and last id of the filtered reservation list
-  const firstId = filteredReservations[0].id;
-  const lastId = filteredReservations[filteredReservations.length - 1].id;
-  try {
-    //loop through indexes between the first and last id
-    for (let id = firstId; id <= lastId; id++) {
-      let reservationExists = false;
-      //loop through the filteredReservations objects to see if they any match the current possible id
-      for (let i = 0; i < filteredReservations.length; i++) {
-        if (filteredReservations[i].id === id) {
-          reservationExists = true;
-          break;
-        }
-      }
-      //if one is found that matches, delete that entry
-      if (reservationExists) {
-        await axios.delete(`/api/reservations/${id}`);
-      }
-    }
-    alert("Reservations canceled");
-    window.location.reload();
-  } catch (err) {
-    console.error(err);
-    alert("Failed to cancel reservation");
-  }
+  navigate("/admincancelreservationbygroup", {
+  state: { filteredReservations }
+  });
 };
 
   return (
