@@ -1,0 +1,21 @@
+# Node / React
+node_modules/
+dist/
+build/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Local databases
+*.mv.db
+*.trace.db
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
